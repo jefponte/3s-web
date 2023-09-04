@@ -6,6 +6,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import { EventList } from "./features/events/EventList";
 import { EventSelect } from "./features/events/EventSelect";
 import { Footer } from "./components/Footer";
+import ServiceList from "./features/services/ServiceList";
+import ServiceEdit from "./features/services/ServiceEdit";
 
 
 function App() {
@@ -21,11 +23,11 @@ function App() {
         <Header />
         <Layout>
           <Routes>
-            <Route path="/" element={<EventList />} />
-            <Route path="/events" element={<EventList />} />
-            <Route path="/events/:id" element={<EventSelect />} />
+            <Route path="/" element={<ServiceList />} />
+            <Route path="/services" element={<ServiceList />} />
+            <Route path="/services/edit/:id" element={<ServiceEdit />} />
             <Route path="*" element={
-              <Box sx={{ color: "white" }}>
+              <Box>
                 <Typography variant="h1">404</Typography>
                 <Typography variant="h2">Página não encontrada</Typography>
               </Box>} />

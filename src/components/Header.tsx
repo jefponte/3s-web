@@ -63,7 +63,7 @@ export const Header = () => {
 
   return (
     <AppBar position="static" style={styles.paperContainer}>
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
           <ImageLogo />
 

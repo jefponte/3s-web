@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
 
-interface Service {
+export interface Service {
     id: string;
     name: string;
     description: string | null;
@@ -13,7 +14,7 @@ interface Service {
 }
 
 
-const service : Service = {
+const service: Service = {
     "id": "454",
     "name": "Tira-dúvidas sobre suporte a Banco de Dados",
     "description": "Serviço utilizado para tirar dúvidas sobre banco de dados.",
@@ -29,20 +30,37 @@ const service : Service = {
 
 export const initialState = [
     service,
-    {...service, id: "1", name: "ABC"},
-    {...service, id: "2", name: "DEF"},
-    {...service, id: "3", name: "GH!"},
+    { ...service, id: "1", name: "ABC" },
+    { ...service, id: "2", name: "DEF" },
+    { ...service, id: "3", name: "GH!" },
 ];
 
 const servicesSlice = createSlice({
     name: 'services',
     initialState: initialState,
     reducers: {
-        createService(state, action) {},
-        updateService(state, action) {},
-        deleteService(state, action) {},
+        createService(state, action) {
+            state.push(action.payload);
+         },
+        updateService(state, action) {
+            const index = state.findIndex((service) => service.id === action.payload.id);
+            state[index] = action.payload;
+         },
+        deleteService(state, action) {
+            const index = state.findIndex((service) => service.id === action.payload.id);
+            state.splice(index, 1);
+        },
     },
-  });
+});
+
+//Selectors
+
+export const selectServices = (state: RootState) => state.services;
+export const selectServiceById = (state: RootState, id: string) => {
+    const service = state.services.find((service) => service.id === id);
+    return service || {} as Service;
+}
 
 
-  export default servicesSlice.reducer;
+export default servicesSlice.reducer;
+export const { createService, updateService, deleteService } = servicesSlice.actions;

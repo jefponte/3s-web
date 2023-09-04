@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
 
 interface Service {
     id: string;
@@ -13,7 +14,7 @@ interface Service {
 }
 
 
-const service : Service = {
+const service: Service = {
     "id": "454",
     "name": "Tira-dúvidas sobre suporte a Banco de Dados",
     "description": "Serviço utilizado para tirar dúvidas sobre banco de dados.",
@@ -29,20 +30,23 @@ const service : Service = {
 
 export const initialState = [
     service,
-    {...service, id: "1", name: "ABC"},
-    {...service, id: "2", name: "DEF"},
-    {...service, id: "3", name: "GH!"},
+    { ...service, id: "1", name: "ABC" },
+    { ...service, id: "2", name: "DEF" },
+    { ...service, id: "3", name: "GH!" },
 ];
 
 const servicesSlice = createSlice({
     name: 'services',
     initialState: initialState,
     reducers: {
-        createService(state, action) {},
-        updateService(state, action) {},
-        deleteService(state, action) {},
+        createService(state, action) { },
+        updateService(state, action) { },
+        deleteService(state, action) { },
     },
-  });
+});
 
+//Selectors
 
-  export default servicesSlice.reducer;
+export const selectServices = (state: RootState) => state.services;
+
+export default servicesSlice.reducer;

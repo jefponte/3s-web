@@ -47,7 +47,8 @@ const servicesSlice = createSlice({
             state[index] = action.payload;
          },
         deleteService(state, action) {
-
+            const index = state.findIndex((service) => service.id === action.payload.id);
+            state.splice(index, 1);
         },
     },
 });

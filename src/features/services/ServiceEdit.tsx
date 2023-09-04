@@ -2,7 +2,7 @@ import { Box, Typography, Paper, FormControl, Grid } from '@mui/material'
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { Service, selectServiceById, updateService } from './serviceSlice';
+import { Service, createService, selectServiceById, updateService } from './serviceSlice';
 import { ServiceForm } from './components/ServiceForm';
 
 export default function ServiceEdit() {
@@ -15,7 +15,7 @@ export default function ServiceEdit() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setServiceState({ ...service, [name]: value });
+    setServiceState({ ...serviceState, [name]: value });
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {

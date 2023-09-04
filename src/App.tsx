@@ -7,6 +7,7 @@ import { Footer } from "./components/Footer";
 import ServiceList from "./features/services/ServiceList";
 import ServiceEdit from "./features/services/ServiceEdit";
 import { SnackbarProvider } from "notistack";
+import ServiceCreate from "./features/services/ServiceCreate";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
               <Route path="/" element={<ServiceList />} />
               <Route path="/services" element={<ServiceList />} />
               <Route path="/services/edit/:id" element={<ServiceEdit />} />
+              <Route path="/services/create" element={<ServiceCreate />} />
               <Route path="*" element={
                 <Box>
                   <Typography variant="h1">404</Typography>

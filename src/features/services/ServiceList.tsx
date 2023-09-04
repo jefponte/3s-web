@@ -1,12 +1,15 @@
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
-import { useAppSelector } from '../../app/hooks'
-import { selectServices } from './serviceSlice';
+import { IconButton } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { deleteService, selectServices } from './serviceSlice';
 import { Link } from 'react-router-dom';
 import { DataGrid, GridRowsProp, GridColDef, GridToolbar, ptBR, GridRenderCellParams } from '@mui/x-data-grid';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 export default function ServiceList() {
-
+  const dispatch = useAppDispatch();
   const services = useAppSelector(selectServices);
 
   const rows: GridRowsProp = services.map((service) => ({
@@ -16,15 +19,37 @@ export default function ServiceList() {
   }));
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'Id', flex: 1 },
     {
       field: 'name',
       renderCell: renderNameCell,
       headerName: 'Nome', flex: 1
     },
     { field: 'description', headerName: 'Descrição', flex: 1 },
+    {
+      field: 'id',
+      headerName: 'Deletar',
+      type: "string",
+      flex: 1,
+      renderCell: renderDeleteActionCell
+    },
 
   ];
+
+  function handleDeleteService(id: string) {
+    dispatch(deleteService(id));
+  }
+  function renderDeleteActionCell(params: GridRenderCellParams) {
+    const { id } = params;
+    return (
+      <IconButton
+        color="secondary"
+        onClick={() => handleDeleteService(params.value)}
+        arial-label="delete"
+      >
+        <DeleteIcon />
+
+      </IconButton>);
+  }
   function renderNameCell(rowData: GridRenderCellParams) {
     return (
       <Link

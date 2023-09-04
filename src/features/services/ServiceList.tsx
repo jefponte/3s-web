@@ -3,12 +3,37 @@ import React from 'react'
 import { useAppSelector } from '../../app/hooks'
 import { selectServices } from './serviceSlice';
 import { Link } from 'react-router-dom';
-
+import { DataGrid, GridRowsProp, GridColDef, GridToolbar, ptBR, GridRenderCellParams } from '@mui/x-data-grid';
 
 export default function ServiceList() {
 
   const services = useAppSelector(selectServices);
 
+  const rows: GridRowsProp = services.map((service) => ({
+    id: service.id,
+    name: service.name,
+    description: service.description
+  }));
+
+  const columns: GridColDef[] = [
+    { field: 'id', headerName: 'Id', flex: 1 },
+    {
+      field: 'name',
+      renderCell: renderNameCell,
+      headerName: 'Nome', flex: 1
+    },
+    { field: 'description', headerName: 'Descrição', flex: 1 },
+
+  ];
+  function renderNameCell(rowData: GridRenderCellParams) {
+    return (
+      <Link
+        style={{ textDecoration: "none" }}
+        to={`/services/edit/${rowData.id}`}
+      >
+        <Typography color="primary">{rowData.value}</Typography>
+      </Link>);
+  }
   return (
     <Box maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Box display="flex" justifyContent="flex-end">
@@ -22,9 +47,27 @@ export default function ServiceList() {
           Novo Serviço
         </Button>
       </Box>
-      <Typography variant="h3" component="h1">
-        Service Lis AAA
-      </Typography>
+      <Box
+        sx={{ display: "flex", height: 600 }}
+      >
+
+
+        <DataGrid
+          rows={rows} columns={columns}
+          slots={{ toolbar: GridToolbar }}
+          disableColumnSelector={true}
+          disableColumnFilter={true}
+          disableDensitySelector={true}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 500 }
+            },
+          }}
+          localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
+        />
+      </Box>
+
     </Box>
   )
 }

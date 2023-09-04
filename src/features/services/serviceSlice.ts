@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
-interface Service {
+export interface Service {
     id: string;
     name: string;
     description: string | null;
@@ -39,14 +39,27 @@ const servicesSlice = createSlice({
     name: 'services',
     initialState: initialState,
     reducers: {
-        createService(state, action) { },
-        updateService(state, action) { },
-        deleteService(state, action) { },
+        createService(state, action) {
+            state.push(action.payload);
+         },
+        updateService(state, action) {
+            const index = state.findIndex((service) => service.id === action.payload.id);
+            state[index] = action.payload;
+         },
+        deleteService(state, action) {
+
+        },
     },
 });
 
 //Selectors
 
 export const selectServices = (state: RootState) => state.services;
+export const selectServiceById = (state: RootState, id: string) => {
+    const service = state.services.find((service) => service.id === id);
+    return service || {} as Service;
+}
+
 
 export default servicesSlice.reducer;
+export const { createService, updateService, deleteService } = servicesSlice.actions;

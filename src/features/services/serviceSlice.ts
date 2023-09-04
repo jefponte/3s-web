@@ -1,3 +1,5 @@
+import { createSlice } from "@reduxjs/toolkit";
+
 interface Service {
     id: string;
     name: string;
@@ -23,13 +25,24 @@ const service : Service = {
     "updated_at": null
 }
 
-const services = [
+
+
+export const initialState = [
     service,
     {...service, id: "1", name: "ABC"},
     {...service, id: "2", name: "DEF"},
     {...service, id: "3", name: "GH!"},
 ];
 
-export const initialState = {
-    services: []
-}
+const servicesSlice = createSlice({
+    name: 'services',
+    initialState: initialState,
+    reducers: {
+        createService(state, action) {},
+        updateService(state, action) {},
+        deleteService(state, action) {},
+    },
+  });
+
+
+  export default servicesSlice.reducer;

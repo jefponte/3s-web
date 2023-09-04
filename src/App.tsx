@@ -3,8 +3,6 @@ import { Header } from "./components/Header";
 import Layout from "./components/Layout";
 import { appTheme } from "./config/theme";
 import { Routes, Route, Link } from "react-router-dom";
-import { EventList } from "./features/events/EventList";
-import { EventSelect } from "./features/events/EventSelect";
 import { Footer } from "./components/Footer";
 import ServiceList from "./features/services/ServiceList";
 import ServiceEdit from "./features/services/ServiceEdit";

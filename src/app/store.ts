@@ -1,9 +1,9 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import eventReducer from "../features/events/eventSlice";
+import serviceSlice from "../features/services/serviceSlice";
 
 export const store = configureStore({
   reducer: {
-    events: eventReducer
+    services: serviceSlice
   },
 })
 

@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
+import { apiSlice } from "../api/apiSlice";
+import { Results } from "../../types/Service";
 
 export interface Service {
     id: string;
@@ -12,6 +14,17 @@ export interface Service {
     created_at: string | null;
     updated_at: string | null;
 }
+
+const endpointUrl: string = "/services";
+export const servicesApiSlice = apiSlice.injectEndpoints({
+    endpoints: ({ query }) => ({
+        getServices: query<Results, void>({
+            query: () => `${endpointUrl}`,
+            providesTags: ["Services"]
+        })
+    })
+});
+
 
 
 const service: Service = {
@@ -41,11 +54,11 @@ const servicesSlice = createSlice({
     reducers: {
         createService(state, action) {
             state.push(action.payload);
-         },
+        },
         updateService(state, action) {
             const index = state.findIndex((service) => service.id === action.payload.id);
             state[index] = action.payload;
-         },
+        },
         deleteService(state, action) {
             const index = state.findIndex((service) => service.id === action.payload.id);
             state.splice(index, 1);
@@ -64,3 +77,7 @@ export const selectServiceById = (state: RootState, id: string) => {
 
 export default servicesSlice.reducer;
 export const { createService, updateService, deleteService } = servicesSlice.actions;
+
+export const {
+    useGetServicesQuery
+} = servicesApiSlice;

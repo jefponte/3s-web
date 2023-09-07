@@ -2,7 +2,7 @@ import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import { IconButton } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { deleteService, selectServices } from './serviceSlice';
+import { deleteService, selectServices, useGetServicesQuery } from './serviceSlice';
 import { Link } from 'react-router-dom';
 import { DataGrid, GridRowsProp, GridColDef, GridToolbar, ptBR, GridRenderCellParams } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -11,6 +11,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 export default function ServiceList() {
   const dispatch = useAppDispatch();
   const services = useAppSelector(selectServices);
+  const { data, isFetching, error } = useGetServicesQuery();
+  console.log(data);
 
   const rows: GridRowsProp = services.map((service) => ({
     id: service.id,

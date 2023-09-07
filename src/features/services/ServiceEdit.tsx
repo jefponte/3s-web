@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Service, createService, selectServiceById, updateService } from './serviceSlice';
 import { ServiceForm } from './components/ServiceForm';
+import { useSnackbar } from 'notistack';
 
 export default function ServiceEdit() {
 
@@ -12,7 +13,7 @@ export default function ServiceEdit() {
   const [serviceState, setServiceState] = useState<Service>(service);
 
   const dispatch = useAppDispatch();
-
+  const { enqueueSnackbar } = useSnackbar();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setServiceState({ ...serviceState, [name]: value });
@@ -21,6 +22,7 @@ export default function ServiceEdit() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(updateService(serviceState));
+    enqueueSnackbar("Sucesso ao editar serviço", { variant: "success" });
   }
   return (
     <Box>

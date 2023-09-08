@@ -1,16 +1,14 @@
-import { Box, Button, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
-import { IconButton } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { deleteService, selectServices, useDeleteServiceMutation, useGetServicesQuery } from './serviceSlice';
-import { Link } from 'react-router-dom';
-import { DataGrid, GridRowsProp, GridColDef, GridToolbar, ptBR, GridRenderCellParams } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Box, Button, IconButton, Typography } from '@mui/material';
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp, GridToolbar, ptBR } from '@mui/x-data-grid';
 import { enqueueSnackbar } from 'notistack';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../app/hooks';
+import { useDeleteServiceMutation, useGetServicesQuery } from './serviceSlice';
 
 
 export default function ServiceList() {
-  const dispatch = useAppDispatch();
   const { data, isFetching, error } = useGetServicesQuery();
   const [deleteService, deleteServiceStatus] = useDeleteServiceMutation();
 

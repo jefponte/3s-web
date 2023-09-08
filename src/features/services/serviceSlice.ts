@@ -1,26 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { apiSlice } from "../api/apiSlice";
-import { Results } from "../../types/Service";
+import { Results, Service } from "../../types/Service";
 
-export interface Service {
-    id: string;
-    name: string;
-    description: string | null;
-    sla: string | null;
-    role: string | null;
-    division_id: string | null;
-    details: string | null;
-    created_at: string | null;
-    updated_at: string | null;
-}
+
 
 const endpointUrl: string = "/services";
+
+
+function deleteServiceMutation(service: Service) {
+    return {
+        url: `${endpointUrl}/${service.id}`,
+        method: "DELETE",
+    }
+}
+
 export const servicesApiSlice = apiSlice.injectEndpoints({
-    endpoints: ({ query }) => ({
+    endpoints: ({ query, mutation }) => ({
         getServices: query<Results, void>({
             query: () => `${endpointUrl}`,
             providesTags: ["Services"]
+        }),
+        deleteService: mutation<Service, { id: string }>({
+            query: deleteServiceMutation,
+            invalidatesTags: ["Services"],
         })
     })
 });
@@ -33,10 +36,10 @@ const service: Service = {
     "description": "Serviço utilizado para tirar dúvidas sobre banco de dados.",
     "sla": "2",
     "role": "disabled",
-    "division_id": "1",
+    divisionID: "11",
     "details": "{\"type\": \"Indefinido\", \"service_group\": \"Indefinido\"}",
-    "created_at": null,
-    "updated_at": null
+    "createdAt": null,
+    "updatedAt": null
 }
 
 
@@ -79,5 +82,6 @@ export default servicesSlice.reducer;
 export const { createService, updateService, deleteService } = servicesSlice.actions;
 
 export const {
-    useGetServicesQuery
+    useGetServicesQuery,
+    useDeleteServiceMutation
 } = servicesApiSlice;

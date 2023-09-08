@@ -1,24 +1,24 @@
 import { Box, Button, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { IconButton } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { deleteService, selectServices, useGetServicesQuery } from './serviceSlice';
+import { deleteService, selectServices, useDeleteServiceMutation, useGetServicesQuery } from './serviceSlice';
 import { Link } from 'react-router-dom';
 import { DataGrid, GridRowsProp, GridColDef, GridToolbar, ptBR, GridRenderCellParams } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { enqueueSnackbar } from 'notistack';
 
 
 export default function ServiceList() {
   const dispatch = useAppDispatch();
-  const services = useAppSelector(selectServices);
   const { data, isFetching, error } = useGetServicesQuery();
-  console.log(data);
+  const [deleteService, deleteServiceStatus] = useDeleteServiceMutation();
 
-  const rows: GridRowsProp = services.map((service) => ({
+  const rows: GridRowsProp = data ? data.data.map((service) => ({
     id: service.id,
     name: service.name,
     description: service.description
-  }));
+  })) : [];
 
   const columns: GridColDef[] = [
     {
@@ -37,9 +37,15 @@ export default function ServiceList() {
 
   ];
 
-  function handleDeleteService(id: string) {
-    dispatch(deleteService(id));
+  async function handleDeleteService(id: string) {
+    await deleteService({ id });
   }
+  useEffect(() => {
+    if(deleteServiceStatus.isSuccess) {
+      enqueueSnackbar("Serviço deletado com sucesso!", {variant: "success"});
+    }
+  }, [deleteServiceStatus, enqueueSnackbar]);
+
   function renderDeleteActionCell(params: GridRenderCellParams) {
     const { id } = params;
     return (

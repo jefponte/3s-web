@@ -15,12 +15,12 @@ export interface Results {
 }
 
 export interface Service {
-    id:          number;
+    id:          string;
     name:        string;
     description: string;
-    sla:         number;
+    sla:         string;
     role:        string;
-    divisionID:  number;
+    divisionID:  string;
     details:     string;
     createdAt:   null;
     updatedAt:   null;

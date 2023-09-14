@@ -4,11 +4,12 @@ import { apiSlice } from "../api/apiSlice";
 export interface Service {
   id: string;
   name: string;
-  is_active: boolean;
-  created_at: string;
-  updated_at: string;
-  deleted_at: null | string;
   description: null | string;
+  role: string;
+  division_id: number;
+  details: null | string;
+  created_at: null | string;
+  updated_at: null | string;
 }
 const endpointUrl = "/services";
 

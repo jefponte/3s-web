@@ -1,47 +1,9 @@
-import { Box, Typography, Paper, FormControl, Grid } from '@mui/material'
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { Service, createService, selectServiceById, updateService } from './serviceSlice';
-import { ServiceForm } from './components/ServiceForm';
-import { useSnackbar } from 'notistack';
+import React from 'react'
 
-export default function ServiceEdit() {
-
-  const id = useParams().id || "";
-  const service = useAppSelector((state) => selectServiceById(state, id));
-  const [serviceState, setServiceState] = useState<Service>(service);
-
-  const dispatch = useAppDispatch();
-  const { enqueueSnackbar } = useSnackbar();
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setServiceState({ ...serviceState, [name]: value });
-  }
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    dispatch(updateService(serviceState));
-    enqueueSnackbar("Sucesso ao editar serviço", { variant: "success" });
-  }
+export function ServiceEdit() {
   return (
-    <Box>
-      <Paper>
-        <Box p={2}>
-          <Box mb={2}>
-            <Typography variant="h4">Editar Serviço</Typography>
-          </Box>
-        </Box>
-        <Box p={2}>
-          <ServiceForm
-            service={serviceState}
-            isLoading={false}
-            handleSubmit={handleSubmit}
-            handleChange={handleChange}
-          />
-        </Box>
-      </Paper>
-
-    </Box>
+    <div>
+      Editar Servico
+    </div>
   )
 }

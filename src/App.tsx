@@ -4,10 +4,11 @@ import Layout from "./components/Layout";
 import { appTheme } from "./config/theme";
 import { Routes, Route, Link } from "react-router-dom";
 import { Footer } from "./components/Footer";
-import ServiceList from "./features/services/ServiceList";
-import ServiceEdit from "./features/services/ServiceEdit";
+import { ServiceList } from "./features/services/ServiceList";
+import { ServiceEdit } from "./features/services/ServiceEdit";
+import { ServiceCreate } from "./features/services/ServiceCreate";
 import { SnackbarProvider } from "notistack";
-import ServiceCreate from "./features/services/ServiceCreate";
+
 
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
 
           <Header />
           <Layout>
-          <Routes>
+            <Routes>
               <Route path="/" element={<ServiceList />} />
               <Route path="/services" element={<ServiceList />} />
               <Route path="/services/edit/:id" element={<ServiceEdit />} />

@@ -1,10 +1,9 @@
-import { configureStore, ThunkAction, Action, getDefaultMiddleware } from "@reduxjs/toolkit";
-import serviceSlice, { servicesApiSlice } from "../features/services/serviceSlice";
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import { servicesApiSlice } from "../features/services/serviceSlice";
 import { apiSlice } from "../features/api/apiSlice";
 
 export const store = configureStore({
   reducer: {
-    services: serviceSlice,
     [apiSlice.reducerPath]: apiSlice.reducer,
     [servicesApiSlice.reducerPath]: apiSlice.reducer
   },

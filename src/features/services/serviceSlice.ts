@@ -1,87 +1,98 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
+import { Result, Results, ServiceParams } from "../../types/Service";
 import { apiSlice } from "../api/apiSlice";
-import { Results, Service } from "../../types/Service";
 
+export interface Service {
+  id: string;
+  name: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  deleted_at: null | string;
+  description: null | string;
+}
+const endpointUrl = "/services";
 
+function parseQueryParams(params: ServiceParams) {
+  const query = new URLSearchParams();
 
-const endpointUrl: string = "/services";
+  if (params.page) {
+    query.append("page", params.page.toString());
+  }
 
+  if (params.perPage) {
+    query.append("per_page", params.perPage.toString());
+  }
 
-function deleteServiceMutation(service: Service) {
-    return {
-        url: `${endpointUrl}/${service.id}`,
-        method: "DELETE",
-    }
+  if (params.search) {
+    query.append("search", params.search);
+  }
+
+  if (params.isActive) {
+    query.append("is_active", params.isActive.toString());
+  }
+
+  return query.toString();
+}
+
+function getServices({ page = 1, perPage = 10, search = "" }) {
+  const params = { page, perPage, search, isActive: true };
+
+  return `${endpointUrl}?${parseQueryParams(params)}`;
+}
+
+function deleteServiceMutation(category: Service) {
+  return {
+    url: `${endpointUrl}/${category.id}`,
+    method: "DELETE",
+  };
+}
+
+function createServiceMutation(category: Service) {
+  return { url: endpointUrl, method: "POST", body: category };
+}
+
+function updateServiceMutation(category: Service) {
+  return {
+    url: `${endpointUrl}/${category.id}`,
+    method: "PUT",
+    body: category,
+  };
+}
+
+function getService({ id }: { id: string }) {
+  return `${endpointUrl}/${id}`;
 }
 
 export const servicesApiSlice = apiSlice.injectEndpoints({
-    endpoints: ({ query, mutation }) => ({
-        getServices: query<Results, void>({
-            query: () => `${endpointUrl}`,
-            providesTags: ["Services"]
-        }),
-        deleteService: mutation<Service, { id: string }>({
-            query: deleteServiceMutation,
-            invalidatesTags: ["Services"],
-        })
-    })
+  endpoints: ({ query, mutation }) => ({
+    getServices: query<Results, ServiceParams>({
+      query: getServices,
+      providesTags: ["Services"],
+    }),
+    getService: query<Result, { id: string }>({
+      query: getService,
+      providesTags: ["Services"],
+    }),
+    createService: mutation<Result, Service>({
+      query: createServiceMutation,
+      invalidatesTags: ["Services"],
+    }),
+    deleteService: mutation<Result, { id: string }>({
+      query: deleteServiceMutation,
+      invalidatesTags: ["Services"],
+    }),
+    updateService: mutation<Result, Service>({
+      query: updateServiceMutation,
+      invalidatesTags: ["Services"],
+    }),
+  }),
 });
 
-
-
-const service: Service = {
-    "id": "454",
-    "name": "Tira-dúvidas sobre suporte a Banco de Dados",
-    "description": "Serviço utilizado para tirar dúvidas sobre banco de dados.",
-    "sla": "2",
-    "role": "disabled",
-    divisionID: "11",
-    "details": "{\"type\": \"Indefinido\", \"service_group\": \"Indefinido\"}",
-    "createdAt": null,
-    "updatedAt": null
-}
-
-
-
-export const initialState = [
-    service,
-    { ...service, id: "1", name: "ABC" },
-    { ...service, id: "2", name: "DEF" },
-    { ...service, id: "3", name: "GH!" },
-];
-
-const servicesSlice = createSlice({
-    name: 'services',
-    initialState: initialState,
-    reducers: {
-        createService(state, action) {
-            state.push(action.payload);
-        },
-        updateService(state, action) {
-            const index = state.findIndex((service) => service.id === action.payload.id);
-            state[index] = action.payload;
-        },
-        deleteService(state, action) {
-            const index = state.findIndex((service) => service.id === action.payload.id);
-            state.splice(index, 1);
-        },
-    },
-});
-
-//Selectors
-
-export const selectServices = (state: RootState) => state.services;
-export const selectServiceById = (state: RootState, id: string) => {
-    const service = state.services.find((service) => service.id === id);
-    return service || {} as Service;
-}
-
-
-export default servicesSlice.reducer;
-export const { createService, updateService, deleteService } = servicesSlice.actions;
 
 export const {
-    useGetServicesQuery,
-    useDeleteServiceMutation
+  useGetServicesQuery,
+  useDeleteServiceMutation,
+  useCreateServiceMutation,
+  useUpdateServiceMutation,
+  useGetServiceQuery,
 } = servicesApiSlice;

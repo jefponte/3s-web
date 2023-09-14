@@ -1,70 +1,61 @@
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Box, Button, IconButton, Typography } from '@mui/material';
-import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp, GridToolbar, ptBR } from '@mui/x-data-grid';
-import { enqueueSnackbar } from 'notistack';
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../app/hooks';
-import { useDeleteServiceMutation, useGetServicesQuery } from './serviceSlice';
+import { Box, Button, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+import {
+  useDeleteServiceMutation,
+  useGetServicesQuery,
+} from "./serviceSlice";
 
+import { GridFilterModel } from "@mui/x-data-grid";
+import { useSnackbar } from "notistack";
+import { useEffect, useState } from "react";
+import { ServicesTable } from "./components/ServicesTable";
 
-export default function ServiceList() {
-  const { data, isFetching, error } = useGetServicesQuery();
-  const [deleteService, deleteServiceStatus] = useDeleteServiceMutation();
+export const ServiceList = () => {
+  const { enqueueSnackbar } = useSnackbar();
+  const [options, setOptions] = useState({
+    page: 1,
+    search: "",
+    perPage: 10,
+    rowsPerPage: [10, 20, 30],
+  });
+  const { data, isFetching, error } = useGetServicesQuery(options);
+  const [deleteService, { error: deleteError, isSuccess: deleteSuccess }] =
+    useDeleteServiceMutation();
 
-  const rows: GridRowsProp = data ? data.data.map((service) => ({
-    id: service.id,
-    name: service.name,
-    description: service.description
-  })) : [];
+  function handleOnPageChange(page: number) {
+    setOptions({ ...options, page: page + 1 });
+  }
 
-  const columns: GridColDef[] = [
-    {
-      field: 'name',
-      renderCell: renderNameCell,
-      headerName: 'Nome', flex: 1
-    },
-    { field: 'description', headerName: 'Descrição', flex: 1 },
-    {
-      field: 'id',
-      headerName: 'Deletar',
-      type: "string",
-      flex: 1,
-      renderCell: renderDeleteActionCell
-    },
+  function handleOnPageSizeChange(perPage: number) {
+    setOptions({ ...options, perPage });
+  }
 
-  ];
+  function handleFilterChange(filterModel: GridFilterModel) {
+    if (!filterModel.quickFilterValues?.length) {
+      return setOptions({ ...options, search: "" });
+    }
+
+    const search = filterModel.quickFilterValues.join("");
+    setOptions({ ...options, search });
+  }
 
   async function handleDeleteService(id: string) {
     await deleteService({ id });
   }
+
   useEffect(() => {
-    if(deleteServiceStatus.isSuccess) {
-      enqueueSnackbar("Serviço deletado com sucesso!", {variant: "success"});
+    if (deleteSuccess) {
+      enqueueSnackbar(`Service deleted`, { variant: "success" });
     }
-  }, [deleteServiceStatus, enqueueSnackbar]);
+    if (deleteError) {
+      enqueueSnackbar(`Service not deleted`, { variant: "error" });
+    }
+  }, [deleteSuccess, deleteError, enqueueSnackbar]);
 
-  function renderDeleteActionCell(params: GridRenderCellParams) {
-    const { id } = params;
-    return (
-      <IconButton
-        color="secondary"
-        onClick={() => handleDeleteService(params.value)}
-        arial-label="delete"
-      >
-        <DeleteIcon />
+  if (error) {
+    return <Typography>Error fetching categories</Typography>;
+  }
 
-      </IconButton>);
-  }
-  function renderNameCell(rowData: GridRenderCellParams) {
-    return (
-      <Link
-        style={{ textDecoration: "none" }}
-        to={`/services/edit/${rowData.id}`}
-      >
-        <Typography color="primary">{rowData.value}</Typography>
-      </Link>);
-  }
   return (
     <Box maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Box display="flex" justifyContent="flex-end">
@@ -72,33 +63,22 @@ export default function ServiceList() {
           variant="contained"
           color="secondary"
           component={Link}
-          to="/services/create"
+          to="/categories/create"
           style={{ marginBottom: "1rem" }}
         >
-          Novo Serviço
+          New Service
         </Button>
       </Box>
-      <Box
-        sx={{ display: "flex", height: 600 }}
-      >
-
-
-        <DataGrid
-          rows={rows} columns={columns}
-          slots={{ toolbar: GridToolbar }}
-          disableColumnSelector={true}
-          disableColumnFilter={true}
-          disableDensitySelector={true}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-              quickFilterProps: { debounceMs: 500 }
-            },
-          }}
-          localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
-        />
-      </Box>
-
+      <ServicesTable
+        data={data}
+        isFetching={isFetching}
+        perPage={options.perPage}
+        rowsPerPage={options.rowsPerPage}
+        handleDelete={handleDeleteService}
+        handleOnPageChange={handleOnPageChange}
+        handleOnPageSizeChange={handleOnPageSizeChange}
+        handleFilterChange={handleFilterChange}
+      />
     </Box>
-  )
-}
+  );
+};

@@ -39,15 +39,8 @@ export function OrderTable({
   };
 
   const columns: GridColDef[] = [
-    { field: "name", headerName: "Name", flex: 1, renderCell: renderNameCell },
-    { field: "description", headerName: "Descrição", flex: 1, renderCell: renderNameCell },
-    {
-      field: "id",
-      headerName: "Actions",
-      type: "string",
-      width: 150,
-      renderCell: renderActionsCell,
-    },
+    { field: "id", headerName: "Id", width: 10, renderCell: renderNameCell },
+    { field: "description", headerName: "Descrição", flex: 1, renderCell: renderNameCell }
   ];
 
   function mapDataToGridRows(data: Results) {
@@ -59,17 +52,7 @@ export function OrderTable({
     }));
   }
 
-  function renderActionsCell(params: GridRenderCellParams) {
-    return (
-      <IconButton
-        color="secondary"
-        aria-label="delete"
-        data-testid="delete-button"
-      >
-        <DeleteIcon />
-      </IconButton>
-    );
-  }
+
 
   function renderNameCell(rowData: GridRenderCellParams) {
     return (

@@ -94,7 +94,7 @@ export function UserTable({
   const rowCount = data?.meta.total || 0;
 
   return (
-    <Box sx={{ display: "flex", height: 600 }}>
+    <Box sx={{ display: "flex", height: 450, width: '100%' }}>
       <DataGrid
         rows={rows}
         pagination={true}

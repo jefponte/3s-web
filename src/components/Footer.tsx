@@ -2,7 +2,7 @@ import { Typography, Box } from "@mui/material";
 
 
 export function Footer() {
-    return (<Box sx={{ p: 1 }} component="footer">
+    return (<Box component="footer">
         <Typography variant="h6" align="center" gutterBottom>
             UNILAB - Universidade da Integração Internacional da Lusofonia Afro-Brasileira
         </Typography>

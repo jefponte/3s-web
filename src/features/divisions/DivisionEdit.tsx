@@ -31,7 +31,6 @@ export const DivisionEdit = () => {
 
   useEffect(() => {
     if (division) {
-      console.log(division);
       setDivisionState(division.data);
     }
   }, [division]);

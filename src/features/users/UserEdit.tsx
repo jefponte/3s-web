@@ -31,7 +31,6 @@ export const UserEdit = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       setUserState(user.data);
     }
   }, [user]);

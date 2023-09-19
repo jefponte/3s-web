@@ -31,7 +31,6 @@ export const ServiceEdit = () => {
 
   useEffect(() => {
     if (service) {
-      console.log(service);
       setServiceState(service.data);
     }
   }, [service]);

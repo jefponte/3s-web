@@ -17,8 +17,15 @@ import styled from "styled-components";
 
 
 
+const ImageLogo = styled(({ ...otherProps }) => <img alt="Logo UNILAB" src={Logo3s} {...otherProps} />)`
+    width: 300px;
+    padding: 10px;
+  `;
 
-
+  const ImageLogoBlack = styled(({ ...otherProps }) => <img alt="Logo UNILAB" src={Logo3sBlack} {...otherProps} />)`
+  width: 300px;
+  padding: 10px;
+`;
 
 
 
@@ -33,11 +40,7 @@ type Props = {
 
 export default function ResponsiveDrawer({ open, onClose, isDark }: Props) {
 
-  const ImageLogo = styled(({ ...otherProps }) => <img alt="Logo UNILAB" src={
-    isDark ? (Logo3s) : (Logo3sBlack)} {...otherProps} />)`
-      width: 300px;
-      padding: 10px;
-    `;
+
 
   const routes = [
     { path: "/", name: "Início" },
@@ -51,7 +54,7 @@ export default function ResponsiveDrawer({ open, onClose, isDark }: Props) {
   const drawer = (
     <div>
       <Toolbar>
-        <ImageLogo />
+        {isDark ? <ImageLogo /> : <ImageLogoBlack/>}
       </Toolbar>
       <Divider />
       <List>

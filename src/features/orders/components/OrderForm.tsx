@@ -1,13 +1,13 @@
 import {
-    Box,
-    Button,
-    FormControl,
-    Grid,
-    TextField,
-  } from "@mui/material";
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  TextField,
+} from "@mui/material";
 
   import { Link } from "react-router-dom";
-  import { Order } from "../../../types/Order";
+import { Order } from "../../../types/Order";
 
   type Props = {
     order: Order;

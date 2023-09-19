@@ -2,8 +2,8 @@ import { Box, Paper, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Order } from "../../types/Order";
-import { useCreateOrderMutation } from "./orderSlice";
 import { OrderForm } from "./components/OrderForm";
+import { useCreateOrderMutation } from "./orderSlice";
 
 export const OrderCreate = () => {
   const { enqueueSnackbar } = useSnackbar();

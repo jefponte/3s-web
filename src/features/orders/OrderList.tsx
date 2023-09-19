@@ -5,8 +5,7 @@ import {
 } from "./orderSlice";
 
 import { GridFilterModel } from "@mui/x-data-grid";
-import { useSnackbar } from "notistack";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { OrderTable } from "./components/OrderTable";
 
 export const OrderList = () => {

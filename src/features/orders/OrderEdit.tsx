@@ -2,12 +2,12 @@ import { Box, Paper, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Order } from "../../types/Order";
+import { OrderForm } from "./components/OrderForm";
 import {
   useGetOrderQuery,
   useUpdateOrderMutation,
 } from "./orderSlice";
-import { Order } from "../../types/Order";
-import { OrderForm } from "./components/OrderForm";
 
 export const OrderEdit = () => {
   const id = useParams().id as string;

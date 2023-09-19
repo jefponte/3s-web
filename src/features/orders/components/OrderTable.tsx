@@ -1,16 +1,15 @@
-import { IconButton, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import {
   DataGrid,
-  ptBR,
   GridColDef,
   GridFilterModel,
   GridRenderCellParams,
   GridToolbar,
+  ptBR,
 } from "@mui/x-data-grid";
-import { Results } from "../../../types/Order";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
-import { Box } from "@mui/system";
+import { Results } from "../../../types/Order";
 type Props = {
   data: Results | undefined;
   perPage: number;

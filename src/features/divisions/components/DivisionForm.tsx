@@ -1,13 +1,13 @@
 import {
-    Box,
-    Button,
-    FormControl,
-    Grid,
-    TextField,
-  } from "@mui/material";
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  TextField,
+} from "@mui/material";
 
   import { Link } from "react-router-dom";
-  import { Division } from "../../../types/Division";
+import { Division } from "../../../types/Division";
 
   type Props = {
     division: Division;

@@ -51,8 +51,8 @@ export function UserTable({
   ];
 
   function mapDataToGridRows(data: Results) {
-    const { data: services } = data;
-    return services.map((category) => ({
+    const { data: users } = data;
+    return users.map((category) => ({
       id: category.id,
       name: category.name,
       created_at: category.created_at,
@@ -75,7 +75,7 @@ export function UserTable({
     return (
       <Link
         style={{ textDecoration: "none" }}
-        to={`/services/edit/${rowData.id}`}
+        to={`/users/edit/${rowData.id}`}
       >
         <Typography color="primary">{rowData.value}</Typography>
       </Link>

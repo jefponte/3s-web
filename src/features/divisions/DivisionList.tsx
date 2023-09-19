@@ -61,7 +61,6 @@ export const DivisionList = () => {
       <Box display="flex" justifyContent="flex-end">
         <Button
           variant="contained"
-          color="secondary"
           component={Link}
           to="/divisions/create"
           style={{ marginBottom: "1rem" }}

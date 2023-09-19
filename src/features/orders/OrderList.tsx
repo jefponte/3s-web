@@ -46,12 +46,11 @@ export const OrderList = () => {
       <Box display="flex" justifyContent="flex-end">
         <Button
           variant="contained"
-          color="secondary"
           component={Link}
           to="/orders/create"
           style={{ marginBottom: "1rem" }}
         >
-          Adicionar Serviço
+          Abrir Chamado
         </Button>
       </Box>
       <OrderTable

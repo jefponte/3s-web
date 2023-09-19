@@ -59,9 +59,9 @@ export const ServiceList = () => {
   return (
     <Box maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Box display="flex" justifyContent="flex-end">
+
         <Button
           variant="contained"
-          color="secondary"
           component={Link}
           to="/services/create"
           style={{ marginBottom: "1rem" }}

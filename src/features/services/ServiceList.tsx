@@ -53,7 +53,7 @@ export const ServiceList = () => {
   }, [deleteSuccess, deleteError, enqueueSnackbar]);
 
   if (error) {
-    return <Typography>Error fetching categories</Typography>;
+    return <Typography>Error fetching services</Typography>;
   }
 
   return (
@@ -66,7 +66,7 @@ export const ServiceList = () => {
           to="/services/create"
           style={{ marginBottom: "1rem" }}
         >
-          New Service
+          Adicionar Serviço
         </Button>
       </Box>
       <ServiceTable

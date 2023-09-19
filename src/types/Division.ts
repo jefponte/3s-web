@@ -1,22 +1,20 @@
 export interface Results {
     meta: Meta;
     links: Links;
-    data: Service[];
+    data: Division[];
   }
 
   export interface Result {
-    data: Service;
+    data: Division;
   }
 
-  export interface Service {
+  export interface Division {
     id: string;
     name: string;
     description: null | string;
-    role: string;
-    division_id: number;
-    details: null | string;
-    created_at: null | string;
-    updated_at: null | string;
+    email: string;
+    created_at: string;
+    updated_at: string;
   }
 
   export interface Links {
@@ -36,7 +34,7 @@ export interface Results {
     current_page: number;
   }
 
-  export interface ServiceParams {
+  export interface DivisionParams {
     page?: number;
     perPage?: number;
     search?: string;

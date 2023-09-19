@@ -3,10 +3,10 @@ import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-  Service,
   useGetServiceQuery,
   useUpdateServiceMutation,
 } from "./serviceSlice";
+import { Service } from "../../types/Service";
 import { ServiceForm } from "./components/ServiceForm";
 
 export const ServiceEdit = () => {

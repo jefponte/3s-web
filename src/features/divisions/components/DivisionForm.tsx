@@ -7,18 +7,18 @@ import {
   } from "@mui/material";
 
   import { Link } from "react-router-dom";
-  import { Service } from "../../../types/Service";
+  import { Division } from "../../../types/Division";
 
   type Props = {
-    service: Service;
+    division: Division;
     isdisabled?: boolean;
     isLoading?: boolean;
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   };
 
-  export function ServiceForm({
-    service,
+  export function DivisionForm({
+    division,
     isdisabled = false,
     isLoading = false,
     handleSubmit,
@@ -34,7 +34,7 @@ import {
                   required
                   name="name"
                   label="Name"
-                  value={service.name || ""}
+                  value={division.name || ""}
                   disabled={isdisabled}
                   onChange={handleChange}
                   inputProps={{ "data-testid": "name" }}
@@ -51,7 +51,7 @@ import {
                   inputProps={{ "data-testid": "description" }}
                   disabled={isdisabled}
                   onChange={handleChange}
-                  value={service.description || ""}
+                  value={division.description || ""}
                 />
               </FormControl>
             </Grid>
@@ -59,7 +59,7 @@ import {
 
             <Grid item xs={12}>
               <Box display="flex" gap={2}>
-                <Button variant="contained" component={Link} to="/services">
+                <Button variant="contained" component={Link} to="/divisions">
                   Back
                 </Button>
 

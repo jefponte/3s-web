@@ -1,16 +1,6 @@
-import { Result, Results, ServiceParams } from "../../types/Service";
+import { Result, Results, ServiceParams, Service } from "../../types/Service";
 import { apiSlice } from "../api/apiSlice";
 
-export interface Service {
-  id: string;
-  name: string;
-  description: null | string;
-  role: string;
-  division_id: number;
-  details: null | string;
-  created_at: null | string;
-  updated_at: null | string;
-}
 const endpointUrl = "/services";
 
 function parseQueryParams(params: ServiceParams) {

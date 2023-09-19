@@ -8,6 +8,9 @@ import { ServiceList } from "./features/services/ServiceList";
 import { ServiceEdit } from "./features/services/ServiceEdit";
 import { ServiceCreate } from "./features/services/ServiceCreate";
 import { SnackbarProvider } from "notistack";
+import { DivisionList } from "./features/divisions/DivisionList";
+import { DivisionEdit } from "./features/divisions/DivisionEdit";
+import { DivisionCreate } from "./features/divisions/DivisionCreate";
 
 
 
@@ -35,6 +38,16 @@ function App() {
               <Route path="/services" element={<ServiceList />} />
               <Route path="/services/edit/:id" element={<ServiceEdit />} />
               <Route path="/services/create" element={<ServiceCreate />} />
+
+              <Route path="/divisions" element={<DivisionList />} />
+              <Route path="/divisions/edit/:id" element={<DivisionEdit />} />
+              <Route path="/divisions/create" element={<DivisionCreate />} />
+
+
+              <Route path="/users" element={<ServiceList />} />
+              <Route path="/users/edit/:id" element={<ServiceEdit />} />
+              <Route path="/users/create" element={<ServiceCreate />} />
+
               <Route path="*" element={
                 <Box>
                   <Typography variant="h1">404</Typography>

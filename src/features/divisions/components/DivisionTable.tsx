@@ -7,7 +7,7 @@ import {
   GridRenderCellParams,
   GridToolbar,
 } from "@mui/x-data-grid";
-import { Results } from "../../../types/Service";
+import { Results } from "../../../types/Division";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
@@ -23,7 +23,7 @@ type Props = {
   handleDelete: (id: string) => void;
 };
 
-export function ServiceTable({
+export function DivisionTable({
   data,
   perPage,
   isFetching,
@@ -53,8 +53,8 @@ export function ServiceTable({
   ];
 
   function mapDataToGridRows(data: Results) {
-    const { data: services } = data;
-    return services.map((category) => ({
+    const { data: division } = data;
+    return division.map((category) => ({
       id: category.id,
       name: category.name,
       description: category.description,
@@ -79,7 +79,7 @@ export function ServiceTable({
     return (
       <Link
         style={{ textDecoration: "none" }}
-        to={`/services/edit/${rowData.id}`}
+        to={`/division/edit/${rowData.id}`}
       >
         <Typography color="primary">{rowData.value}</Typography>
       </Link>

@@ -1,14 +1,53 @@
-import { Box, Card, Container } from '@mui/material'
-import React from 'react'
-import { PanelTitle } from './PanelTitle'
+import { AppBar, Box, CssBaseline, ThemeProvider } from "@mui/material";
+import { Container } from "@mui/system";
+import { SnackbarProvider } from "notistack";
+import React, { useState } from "react";
+import { useAppTheme } from "../hooks/useAppTheme";
+import { Header } from "./Header";
+import ResponsiveDrawer from "./ResponsiveDrawer";
+import { Footer } from "./Footer";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-    return (
-        <Box>
-            <Container
-                maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                {children}
-            </Container>
-        </Box>
-    )
+const drawerWidth = 240;
+
+export function Layout({ children }: { children: React.ReactNode }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [currentTheme, toggleCurrentTheme] = useAppTheme();
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  return (
+    <ThemeProvider theme={currentTheme}>
+      <CssBaseline />
+      <Box sx={{ display: "flex" }}>
+        <AppBar
+          position="fixed"
+          sx={{
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+            ml: { sm: `${drawerWidth}px` },
+          }}
+        >
+          <Header
+            handleDrawerToggle={handleDrawerToggle}
+            toggle={toggleCurrentTheme}
+            theme={currentTheme.palette.mode === "dark" ? "dark" : "light"}
+          />
+        </AppBar>
+
+        <ResponsiveDrawer isDark={currentTheme.palette.mode === "dark" } open={mobileOpen} onClose={handleDrawerToggle} />
+
+        <SnackbarProvider
+          autoHideDuration={2000}
+          maxSnack={3}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Container maxWidth="lg" sx={{ color: "white", my: 12 }}>
+            {children}
+          </Container>
+        </SnackbarProvider>
+      </Box>
+      <Footer/>
+    </ThemeProvider>
+  );
 }

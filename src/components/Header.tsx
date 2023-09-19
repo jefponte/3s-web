@@ -1,3 +1,59 @@
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Box, Button, IconButton, Toolbar } from "@mui/material";
+import LogoUNILAB from "../assets/img/logo-unilab.png";
+import styled from "styled-components";
+
+
+const ImageLogo = styled(({ ...otherProps }) => <img alt="Logo UNILAB" src={LogoUNILAB} {...otherProps} />)`
+  width: 300px;
+  padding: 30px;
+`;
+
+
+type HeaderProps = {
+  toggle: () => void;
+  theme: string;
+  handleDrawerToggle?: () => void;
+};
+
+export function Header({ toggle, theme, handleDrawerToggle }: HeaderProps) {
+  const routes = [
+    { path: "/", name: "Início" },
+    { path: "/services", name: "Serviços" },
+    { path: "/divisions", name: "Divisão" },
+    { path: "/users", name: "Usuários" },
+    { path: "/orders", name: "Ocorrências" },
+  ];
+
+  return (
+    <Box>
+      <Toolbar>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          onClick={handleDrawerToggle}
+          sx={{ mr: 2, display: { sm: "none" } }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Box sx={{ flexGrow: 1 }} />
+        <IconButton sx={{ ml: 1 }} onClick={toggle} color="inherit">
+          {theme === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+        </IconButton>
+        <ImageLogo />
+      </Toolbar>
+    </Box>
+  );
+}
+
+
+/**
+
+
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -148,3 +204,9 @@ export const Header = () => {
 
 
 
+
+
+
+ *
+ *
+ */

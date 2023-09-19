@@ -1,9 +1,7 @@
 import { Box, ThemeProvider, Typography, createTheme } from "@mui/material"
-import { Header } from "./components/Header";
-import Layout from "./components/Layout";
-import { appTheme } from "./config/theme";
+import {Layout} from "./components/Layout";
+import { lightTheme, darkTheme } from "./config/theme";
 import { Routes, Route, Link } from "react-router-dom";
-import { Footer } from "./components/Footer";
 import { ServiceList } from "./features/services/ServiceList";
 import { ServiceEdit } from "./features/services/ServiceEdit";
 import { ServiceCreate } from "./features/services/ServiceCreate";
@@ -22,14 +20,6 @@ import { OrderCreate } from "./features/orders/OrderCreate";
 
 function App() {
   return (
-    <ThemeProvider theme={appTheme}>
-      <SnackbarProvider
-        maxSnack={3}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right"
-        }}
-      >
         <Box
           component="main"
           sx={{
@@ -37,7 +27,7 @@ function App() {
           }}
         >
 
-          <Header />
+
           <Layout>
             <Routes>
               <Route path="/" element={<ServiceList />} />
@@ -66,10 +56,9 @@ function App() {
                 </Box>} />
             </Routes>
           </Layout>
-          <Footer />
+
         </Box>
-      </SnackbarProvider>
-    </ThemeProvider>
+
   )
 }
 

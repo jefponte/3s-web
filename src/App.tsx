@@ -11,6 +11,12 @@ import { SnackbarProvider } from "notistack";
 import { DivisionList } from "./features/divisions/DivisionList";
 import { DivisionEdit } from "./features/divisions/DivisionEdit";
 import { DivisionCreate } from "./features/divisions/DivisionCreate";
+import { UserList } from "./features/users/UserList";
+import { UserEdit } from "./features/users/UserEdit";
+import { UserCreate } from "./features/users/UserCreate";
+import { OrderList } from "./features/orders/OrderList";
+import { OrderEdit } from "./features/orders/OrderEdit";
+import { OrderCreate } from "./features/orders/OrderCreate";
 
 
 
@@ -44,9 +50,14 @@ function App() {
               <Route path="/divisions/create" element={<DivisionCreate />} />
 
 
-              <Route path="/users" element={<ServiceList />} />
-              <Route path="/users/edit/:id" element={<ServiceEdit />} />
-              <Route path="/users/create" element={<ServiceCreate />} />
+              <Route path="/users" element={<UserList />} />
+              <Route path="/users/edit/:id" element={<UserEdit />} />
+              <Route path="/users/create" element={<UserCreate />} />
+
+              <Route path="/orders" element={<OrderList />} />
+              <Route path="/orders/edit/:id" element={<OrderEdit />} />
+              <Route path="/orders/create" element={<OrderCreate />} />
+
 
               <Route path="*" element={
                 <Box>

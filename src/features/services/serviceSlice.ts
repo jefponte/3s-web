@@ -31,22 +31,22 @@ function getServices({ page = 1, perPage = 10, search = "" }) {
   return `${endpointUrl}?${parseQueryParams(params)}`;
 }
 
-function deleteServiceMutation(category: Service) {
+function deleteServiceMutation(service: Service) {
   return {
-    url: `${endpointUrl}/${category.id}`,
+    url: `${endpointUrl}/${service.id}`,
     method: "DELETE",
   };
 }
 
-function createServiceMutation(category: Service) {
-  return { url: endpointUrl, method: "POST", body: category };
+function createServiceMutation(service: Service) {
+  return { url: endpointUrl, method: "POST", body: service };
 }
 
-function updateServiceMutation(category: Service) {
+function updateServiceMutation(service: Service) {
   return {
-    url: `${endpointUrl}/${category.id}`,
+    url: `${endpointUrl}/${service.id}`,
     method: "PUT",
-    body: category,
+    body: service,
   };
 }
 

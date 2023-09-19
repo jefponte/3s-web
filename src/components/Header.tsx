@@ -63,7 +63,9 @@ export const Header = () => {
   const routes = [
     { path: "/", name: "Início" },
     { path: "/services", name: "Serviços" },
-    { path: "/divisions", name: "Divisão" }
+    { path: "/divisions", name: "Divisão" },
+    { path: "/users", name: "Usuários" },
+    { path: "/orders", name: "Ocorrências" },
   ];
 
 

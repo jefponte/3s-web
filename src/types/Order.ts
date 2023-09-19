@@ -8,27 +8,27 @@ export interface Result {
 }
 export interface Order {
     id:             number;
-    divisionID:     number;
-    serviceID:      number;
-    divisionSigID:  number;
-    customerUserID: number;
+    division_id:     number;
+    service_id:      number;
+    division_sig_id:  number;
+    customer_user_id: number;
     description:    string;
     campus:         string;
-    tag:            null;
-    phoneNumber:    null | string;
-    divisionSig:    string;
+    tag:            string | null;
+    phone_number:    null | string;
+    division_sig:    string;
     solution:       null | string;
     rating:         null | string;
     email:          null | string;
-    createdAt:      string;
-    serviceAt:      string | null;
-    finishedAt:     string | null;
-    committedAt:    string | null;
-    providerUserID: number | null;
-    attachment:     null;
-    place:          null;
-    priority:       null;
-    updatedAt:      null;
+    created_at:      string;
+    service_at:      string | null;
+    finished_at:     string | null;
+    committed_at:    string | null;
+    provider_user_id: number | null;
+    attachment:     string | null;
+    place:          string | null;
+    priority:       string | null;
+    updated_at:      string | null;
     status:         string;
 }
 

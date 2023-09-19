@@ -7,7 +7,7 @@ import {
   GridRenderCellParams,
   GridToolbar,
 } from "@mui/x-data-grid";
-import { Results } from "../../../types/Division";
+import { Results } from "../../../types/Order";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
@@ -23,15 +23,14 @@ type Props = {
   handleDelete: (id: string) => void;
 };
 
-export function DivisionTable({
+export function OrderTable({
   data,
   perPage,
   isFetching,
   rowsPerPage,
   handleOnPageChange,
   handleFilterChange,
-  handleOnPageSizeChange,
-  handleDelete,
+  handleOnPageSizeChange
 }: Props) {
   const componentProps = {
     toolbar: {
@@ -53,12 +52,11 @@ export function DivisionTable({
   ];
 
   function mapDataToGridRows(data: Results) {
-    const { data: division } = data;
-    return division.map((category) => ({
-      id: category.id,
-      name: category.name,
-      description: category.description,
-      created_at: category.created_at,
+    const { data: orders } = data;
+    return orders.map((order) => ({
+      id: order.id,
+      description: order.description,
+      created_at: order.created_at,
     }));
   }
 
@@ -66,7 +64,6 @@ export function DivisionTable({
     return (
       <IconButton
         color="secondary"
-        onClick={() => handleDelete(params.value)}
         aria-label="delete"
         data-testid="delete-button"
       >
@@ -79,7 +76,7 @@ export function DivisionTable({
     return (
       <Link
         style={{ textDecoration: "none" }}
-        to={`/divisions/edit/${rowData.id}`}
+        to={`/orders/edit/${rowData.id}`}
       >
         <Typography color="primary">{rowData.value}</Typography>
       </Link>

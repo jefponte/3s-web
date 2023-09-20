@@ -53,7 +53,7 @@ export default function ResponsiveDrawer({ open, onClose, isDark }: Props) {
 
   const drawer = (
     <div>
-      <Toolbar>
+      <Toolbar sx={{mt: 5}}>
         {isDark ? <ImageLogo /> : <ImageLogoBlack/>}
       </Toolbar>
       <Divider />
@@ -79,7 +79,7 @@ export default function ResponsiveDrawer({ open, onClose, isDark }: Props) {
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, zIndex: 2 }}
     >
       <Drawer
         variant="temporary"

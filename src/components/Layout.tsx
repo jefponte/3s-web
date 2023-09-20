@@ -24,6 +24,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <AppBar
           position="fixed"
           sx={{
+            mt: 5,
+            zIndex: 2,
             width: { sm: `calc(100% - ${drawerWidth}px)` },
             ml: { sm: `${drawerWidth}px` },
           }}
@@ -42,7 +44,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           maxSnack={3}
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
         >
-          <Container maxWidth="lg" sx={{ color: "white", my: 12 }}>
+          <Container maxWidth="lg" sx={{ color: "white", mt: 25, mb: 2 }}>
             {children}
           </Container>
         </SnackbarProvider>

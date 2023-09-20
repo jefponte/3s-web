@@ -26,8 +26,6 @@ function App() {
             height: "100vh"
           }}
         >
-
-
           <Layout>
             <Routes>
               <Route path="/" element={<ServiceList />} />
@@ -62,4 +60,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

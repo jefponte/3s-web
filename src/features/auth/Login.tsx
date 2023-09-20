@@ -1,38 +1,44 @@
-import React, { useEffect } from 'react';
-import { Credentials, useLoginMutation, useSendLogOutMutation } from './authApiSlice';
-import { useNavigate } from 'react-router-dom';
+import {
+    Box,
+    Paper,
+    Typography
+} from "@mui/material";
 import { useSnackbar } from 'notistack';
-import { Box, Paper, Typography } from "@mui/material";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Credentials, useLoginMutation, useSendLogOutMutation } from './authApiSlice';
+import { LoginForm } from './components/LoginForm';
 
 
-const Login = () => {
-    const [login, statusLogin] = useLoginMutation();
+export const Login = () => {
+    const [doLogin, statusLogin] = useLoginMutation();
     const navigate = useNavigate();
-    const [logout, statusLogout] = useSendLogOutMutation();
     const { enqueueSnackbar } = useSnackbar();
 
-    const handleClick = async () => {
-        const body = {
-            "login": "",
-            "password": "",
-            "device_name": "react"
-        } as Credentials;
-        await login({ ...body });
+    const [credentials, setCredentials] = useState<Credentials>({
+        login: "",
+        password: "",
+        device_name: "react_web"
+    });
 
-        navigate('/');
-    }
-    const handleLogout = () => {
-        logout({});
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setCredentials({ ...credentials, [name]: value });
+    };
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        await doLogin(credentials);
     }
 
     useEffect(() => {
-        if (statusLogout.isSuccess) {
-            enqueueSnackbar("Logout realizado", { variant: "success" });
+        if (statusLogin.isSuccess) {
+            enqueueSnackbar("Login Realizado com Sucesso!", { variant: "success" });
+            navigate('/');
         }
-        if (statusLogout.error) {
-            enqueueSnackbar("Falha no logout", { variant: "error" });
+        if (statusLogin.error) {
+            enqueueSnackbar("Falha no Login", { variant: "error" });
         }
-    }, [enqueueSnackbar, statusLogout.error, statusLogout.isSuccess]);
+    }, [enqueueSnackbar, statusLogin.error, statusLogin.isSuccess]);
     return (
         <Box>
             <Paper>
@@ -41,19 +47,14 @@ const Login = () => {
                         <Typography variant="h4">Formulário de Login</Typography>
                     </Box>
                 </Box>
-                <div>
 
+                <LoginForm
+                    credentials={credentials}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                />
 
-                    <button
-                        onClick={handleClick}
-                    >Logar</button>
-                    <button
-                        onClick={handleLogout}
-                    >Logout</button>
-                </div>
             </Paper>
         </Box>
     )
 }
-
-export default Login;

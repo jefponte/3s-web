@@ -6,12 +6,16 @@ import { useAppTheme } from "../hooks/useAppTheme";
 import { Header } from "./Header";
 import ResponsiveDrawer from "./ResponsiveDrawer";
 import { Footer } from "./Footer";
+import { useSelector } from "react-redux";
+import { selectIsAuthenticated } from "../features/auth/authSlice";
+
 
 const drawerWidth = 240;
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [currentTheme, toggleCurrentTheme] = useAppTheme();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -26,7 +30,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           sx={{
             mt: 5,
             zIndex: 2,
-            width: { sm: `calc(100% - ${drawerWidth}px)` },
+
             ml: { sm: `${drawerWidth}px` },
           }}
         >
@@ -37,8 +41,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           />
         </AppBar>
 
-        <ResponsiveDrawer isDark={currentTheme.palette.mode === "dark" } open={mobileOpen} onClose={handleDrawerToggle} />
-
+        {isAuthenticated ? <ResponsiveDrawer isDark={currentTheme.palette.mode === "dark"} open={mobileOpen} onClose={handleDrawerToggle} /> : <></>}
         <SnackbarProvider
           autoHideDuration={2000}
           maxSnack={3}
@@ -49,7 +52,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </Container>
         </SnackbarProvider>
       </Box>
-      <Footer/>
+      <Footer />
     </ThemeProvider>
   );
 }

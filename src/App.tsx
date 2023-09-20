@@ -15,6 +15,7 @@ import { UserCreate } from "./features/users/UserCreate";
 import { OrderList } from "./features/orders/OrderList";
 import { OrderEdit } from "./features/orders/OrderEdit";
 import { OrderCreate } from "./features/orders/OrderCreate";
+import Login from "./features/auth/Login";
 
 
 
@@ -46,6 +47,7 @@ function App() {
               <Route path="/orders/edit/:id" element={<OrderEdit />} />
               <Route path="/orders/create" element={<OrderCreate />} />
 
+              <Route path="/login" element={<Login />} />
 
               <Route path="*" element={
                 <Box>

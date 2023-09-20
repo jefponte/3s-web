@@ -109,17 +109,12 @@ export const LoginForm = ({
                     </Grid>
                     <Grid item xs={12}>
                         <Box display="flex" gap={2}>
-                            <Button variant="contained" component={Link} to="/services">
-                                Back
-                            </Button>
-
                             <Button
-                                disabled={!(errorPassword.valid && errorLogin.valid)}
+                                disabled={!(errorPassword.valid && errorLogin.valid && !isLoading)}
                                 type="submit"
                                 variant="contained"
-                                color="secondary"
                             >
-                                {isLoading ? "Loading..." : "Logar"}
+                                {isLoading ? "Aguarde..." : "Logar"}
                             </Button>
                         </Box>
                     </Grid>

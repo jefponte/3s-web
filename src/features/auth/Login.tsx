@@ -13,6 +13,7 @@ import { LoginForm } from './components/LoginForm';
 export const Login = () => {
     const [doLogin, statusLogin] = useLoginMutation();
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
 
     const [credentials, setCredentials] = useState<Credentials>({
@@ -27,16 +28,19 @@ export const Login = () => {
     };
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        setIsLoading(true);
         await doLogin(credentials);
     }
 
     useEffect(() => {
         if (statusLogin.isSuccess) {
             enqueueSnackbar("Login Realizado com Sucesso!", { variant: "success" });
+            setIsLoading(false);
             navigate('/');
         }
         if (statusLogin.error) {
             enqueueSnackbar("Falha no Login", { variant: "error" });
+            setIsLoading(false);
         }
     }, [enqueueSnackbar, statusLogin.error, statusLogin.isSuccess]);
     return (
@@ -52,6 +56,7 @@ export const Login = () => {
                     credentials={credentials}
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
+                    isLoading={isLoading}
                 />
 
             </Paper>

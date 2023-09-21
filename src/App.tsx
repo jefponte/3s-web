@@ -1,22 +1,19 @@
-import { Box, ThemeProvider, Typography, createTheme } from "@mui/material"
+import { Box, Typography } from "@mui/material";
+import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
-import { lightTheme, darkTheme } from "./config/theme";
-import { Routes, Route, Link } from "react-router-dom";
-import { ServiceList } from "./features/services/ServiceList";
-import { ServiceEdit } from "./features/services/ServiceEdit";
-import { ServiceCreate } from "./features/services/ServiceCreate";
-import { SnackbarProvider } from "notistack";
-import { DivisionList } from "./features/divisions/DivisionList";
-import { DivisionEdit } from "./features/divisions/DivisionEdit";
-import { DivisionCreate } from "./features/divisions/DivisionCreate";
-import { UserList } from "./features/users/UserList";
-import { UserEdit } from "./features/users/UserEdit";
-import { UserCreate } from "./features/users/UserCreate";
-import { OrderList } from "./features/orders/OrderList";
-import { OrderEdit } from "./features/orders/OrderEdit";
-import { OrderCreate } from "./features/orders/OrderCreate";
-import { Login } from "./features/auth/Login";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { Login } from "./features/auth/Login";
+import { DivisionCreate } from "./features/divisions/DivisionCreate";
+import { DivisionEdit } from "./features/divisions/DivisionEdit";
+import { DivisionList } from "./features/divisions/DivisionList";
+import { OrderCreate } from "./features/orders/OrderCreate";
+import { OrderEdit } from "./features/orders/OrderEdit";
+import { OrderList } from "./features/orders/OrderList";
+import { ServiceCreate } from "./features/services/ServiceCreate";
+import { ServiceEdit } from "./features/services/ServiceEdit";
+import { ServiceList } from "./features/services/ServiceList";
+import { UserEdit } from "./features/users/UserEdit";
+import { UserList } from "./features/users/UserList";
 
 
 

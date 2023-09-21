@@ -18,15 +18,11 @@ function parseQueryParams(params: UserParams) {
     query.append("search", params.search);
   }
 
-  if (params.isActive) {
-    query.append("is_active", params.isActive.toString());
-  }
-
   return query.toString();
 }
 
 function getUsers({ page = 1, perPage = 10, search = "" }) {
-  const params = { page, perPage, search, isActive: true };
+  const params = { page, perPage, search };
 
   return `${endpointUrl}?${parseQueryParams(params)}`;
 }

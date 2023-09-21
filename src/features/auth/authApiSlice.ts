@@ -34,8 +34,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
 			}),
 			async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
 				try {
-					const response = await queryFulfilled;
-					console.log('API response:', response.data); // Access the response data
+					await queryFulfilled;
 					dispatch(logOut());
 					dispatch(apiSlice.util.resetApiState());
 				} catch (error) {

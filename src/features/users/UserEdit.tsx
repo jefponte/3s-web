@@ -50,7 +50,7 @@ export const UserEdit = () => {
       <Paper>
         <Box p={2}>
           <Box mb={2}>
-            <Typography variant="h4">Edit User</Typography>
+            <Typography variant="h4">Editar Usuário</Typography>
           </Box>
         </Box>
         <UserForm

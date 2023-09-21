@@ -46,11 +46,6 @@ export const Login = () => {
     return (
         <Box>
             <Paper>
-                <Box p={2}>
-                    <Box mb={2}>
-                        <Typography variant="h4">Formulário de Login</Typography>
-                    </Box>
-                </Box>
 
                 <LoginForm
                     credentials={credentials}

@@ -4,12 +4,27 @@ import {
     Button,
     FormControl,
     Grid,
+    Typography,
     TextField
 } from "@mui/material";
-import { useState } from 'react';
-import { Credentials, useLoginMutation, useSendLogOutMutation } from '../authApiSlice';
-
+import { useTheme } from "@mui/material";
+import { useState, useEffect } from 'react';
+import { Credentials } from '../authApiSlice';
 import { Link } from "react-router-dom";
+import Logo3s from "../../../assets/img/logo-3s.png";
+import Logo3sBlack from "../../../assets/img/logo-3s-black.png";
+import styled from "styled-components";
+
+
+const ImageLogo = styled(({ ...otherProps }) => <img alt="Logo UNILAB" src={Logo3s} {...otherProps} />)`
+    width: "50%";
+    padding: 10px;
+  `;
+
+const ImageLogoBlack = styled(({ ...otherProps }) => <img alt="Logo UNILAB" src={Logo3sBlack} {...otherProps} />)`
+  width: "50%";
+  padding: 10px;
+`;
 
 
 type Props = {
@@ -30,10 +45,11 @@ export const LoginForm = ({
 }: Props) => {
 
 
+    const theme = useTheme();
 
     const [errorLogin, setErrorLogin] = useState({ valid: true, text: "" });
     const [errorPassword, setErrorPassowrd] = useState({ valid: true, text: "" });
-
+    const isDarkMode = theme.palette.mode === 'dark';
     function validateLogin() {
         if (credentials.login.length > 1) {
             setErrorLogin({ valid: true, text: "" });
@@ -51,7 +67,17 @@ export const LoginForm = ({
     }
 
     return (
-        <Box p={2}>
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+            }}
+            p={5}>
+            <Box p={2} mb={2}>
+                {isDarkMode ? <ImageLogo /> : <ImageLogoBlack />}
+                <Typography component="h1" variant="h5">Formulário de Login</Typography>
+            </Box>
             <form
                 onSubmit={(event) => {
                     event.preventDefault();

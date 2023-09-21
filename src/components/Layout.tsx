@@ -37,7 +37,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <Header
             handleDrawerToggle={handleDrawerToggle}
             toggle={toggleCurrentTheme}
-            theme={currentTheme.palette.mode === "dark" ? "dark" : "light"}
+            isDark={currentTheme.palette.mode === "dark"}
+            isAuth={isAuthenticated}
           />
         </AppBar>
 

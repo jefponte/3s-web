@@ -101,6 +101,7 @@ export const LoginForm = ({
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                disabled={isLoading}
                                 error={!errorLogin.valid}
                                 onBlur={validateLogin}
                                 helperText={errorLogin.text}
@@ -121,6 +122,7 @@ export const LoginForm = ({
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                disabled={isLoading}
                                 error={!errorPassword.valid}
                                 onBlur={validatePassword}
                                 helperText={errorPassword.text}

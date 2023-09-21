@@ -14,6 +14,7 @@ import { ServiceEdit } from "./features/services/ServiceEdit";
 import { ServiceList } from "./features/services/ServiceList";
 import { UserEdit } from "./features/users/UserEdit";
 import { UserList } from "./features/users/UserList";
+import { UserProfile } from "./features/users/UserProfile";
 
 
 
@@ -39,7 +40,7 @@ function App() {
 
           <Route path="/users" element={<ProtectedRoute><UserList /></ProtectedRoute>} />
           <Route path="/users/edit/:id" element={<ProtectedRoute><UserEdit /></ProtectedRoute>} />
-
+          <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
 
           <Route path="/orders" element={<ProtectedRoute><OrderList /></ProtectedRoute>} />
           <Route path="/orders/edit/:id" element={<ProtectedRoute><OrderEdit /></ProtectedRoute>} />

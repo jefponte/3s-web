@@ -38,7 +38,7 @@ export const UserList = () => {
   }
 
   return (
-    <Box maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <Box maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
 
       <UserTable
         data={data}

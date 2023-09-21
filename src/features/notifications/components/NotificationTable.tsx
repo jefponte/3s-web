@@ -41,8 +41,9 @@ export function NotificationTable({
 
   const columns: GridColDef[] = [
     { field: "order_id", headerName: "Ocorrência", flex: 1},
-    { field: "user_name", headerName: "Name", flex: 1},
-    { field: "description", headerName: "Descrição", flex: 1  },
+    { field: "type", headerName: "Tipo", flex: 1},
+    { field: "user_name", headerName: "Usuário", flex: 1},
+    { field: "description", headerName: "Mensagem", flex: 1  },
     { field: "created_at", headerName: "Data", flex: 1  },
     { field: "created_at_time", headerName: "Hora", flex: 1 }
   ];

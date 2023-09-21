@@ -57,7 +57,7 @@ export function OrderTable({
     return (
       <Link
         style={{ textDecoration: "none" }}
-        to={`/orders/edit/${rowData.id}`}
+        to={`/orders/${rowData.id}`}
       >
         <Typography color="primary">{rowData.value}</Typography>
       </Link>

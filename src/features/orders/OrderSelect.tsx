@@ -9,7 +9,7 @@ import {
   useUpdateOrderMutation,
 } from "./orderSlice";
 
-export const OrderEdit = () => {
+export const OrderSelect = () => {
   const id = useParams().id as string;
   const { data: order, isFetching } = useGetOrderQuery({ id });
   const [isdisabled, setIsdisabled] = useState(false);

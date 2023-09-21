@@ -45,17 +45,6 @@ export const NotificationList = () => {
 
   return (
     <Box maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <Box display="flex" justifyContent="flex-end">
-
-        <Button
-          variant="contained"
-          component={Link}
-          to="/notifications/create"
-          style={{ marginBottom: "1rem" }}
-        >
-          Adicionar Serviço
-        </Button>
-      </Box>
       <NotificationTable
         data={data}
         isFetching={isFetching}

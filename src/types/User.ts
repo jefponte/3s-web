@@ -1,3 +1,5 @@
+import { Division } from "./Division";
+
 export interface Results {
     data:  User[];
     links: Links;
@@ -19,6 +21,7 @@ export interface User {
     email_verified_at: null | string;
     created_at: null | string;
     updated_at: null | string;
+    division: Division;
 }
 export interface Links {
   prev: string;

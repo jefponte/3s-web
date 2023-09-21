@@ -7,16 +7,16 @@ import { DivisionCreate } from "./features/divisions/DivisionCreate";
 import { DivisionEdit } from "./features/divisions/DivisionEdit";
 import { DivisionList } from "./features/divisions/DivisionList";
 import { OrderCreate } from "./features/orders/OrderCreate";
-import { OrderEdit } from "./features/orders/OrderEdit";
 import { OrderList } from "./features/orders/OrderList";
 import { ServiceCreate } from "./features/services/ServiceCreate";
 import { ServiceEdit } from "./features/services/ServiceEdit";
 import { ServiceList } from "./features/services/ServiceList";
 import { UserEdit } from "./features/users/UserEdit";
 import { UserList } from "./features/users/UserList";
-import { UserProfile } from "./features/users/UserProfile";
+import { AuthProfile } from "./features/auth/AuthProfile";
 import { NotFoundCard } from "./components/NotFoundCard";
 import { NotificationList } from "./features/notifications/NotificationList";
+import { OrderSelect } from "./features/orders/OrderSelect";
 
 
 
@@ -30,7 +30,13 @@ function App() {
     >
       <Layout>
         <Routes>
-          <Route path="/" element={<ProtectedRoute><ServiceList /></ProtectedRoute>} />
+          <Route path="/" element={<ProtectedRoute><OrderList /></ProtectedRoute>} />
+
+          <Route path="/orders" element={<ProtectedRoute><OrderList /></ProtectedRoute>} />
+          <Route path="/orders/:id" element={<ProtectedRoute><OrderSelect /></ProtectedRoute>} />
+          <Route path="/orders/create" element={<ProtectedRoute><OrderCreate /></ProtectedRoute>} />
+
+
           <Route path="/services" element={<ProtectedRoute><ServiceList /></ProtectedRoute>} />
           <Route path="/services/edit/:id" element={<ProtectedRoute><ServiceEdit /></ProtectedRoute>} />
           <Route path="/services/create" element={<ProtectedRoute><ServiceCreate /></ProtectedRoute>} />
@@ -42,13 +48,11 @@ function App() {
 
           <Route path="/users" element={<ProtectedRoute><UserList /></ProtectedRoute>} />
           <Route path="/users/edit/:id" element={<ProtectedRoute><UserEdit /></ProtectedRoute>} />
-          <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><AuthProfile /></ProtectedRoute>} />
 
           <Route path="/notifications" element={<ProtectedRoute><NotificationList /></ProtectedRoute>} />
 
-          <Route path="/orders" element={<ProtectedRoute><OrderList /></ProtectedRoute>} />
-          <Route path="/orders/edit/:id" element={<ProtectedRoute><OrderEdit /></ProtectedRoute>} />
-          <Route path="/orders/create" element={<ProtectedRoute><OrderCreate /></ProtectedRoute>} />
+
 
           <Route path="/login" element={<Login />} />
 

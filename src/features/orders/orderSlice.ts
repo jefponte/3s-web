@@ -17,11 +17,6 @@ function parseQueryParams(params: OrderParams) {
   if (params.search) {
     query.append("search", params.search);
   }
-
-  if (params.isActive) {
-    query.append("is_active", params.isActive.toString());
-  }
-
   return query.toString();
 }
 
@@ -30,14 +25,6 @@ function getOrders({ page = 1, perPage = 10, search = "" }) {
 
   return `${endpointUrl}?${parseQueryParams(params)}`;
 }
-
-function deleteOrderMutation(category: Order) {
-  return {
-    url: `${endpointUrl}/${category.id}`,
-    method: "DELETE",
-  };
-}
-
 function createOrderMutation(category: Order) {
   return { url: endpointUrl, method: "POST", body: category };
 }

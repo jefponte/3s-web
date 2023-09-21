@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { ProtectedRoute } from "./components/ProtectedRoute";
@@ -15,6 +15,8 @@ import { ServiceList } from "./features/services/ServiceList";
 import { UserEdit } from "./features/users/UserEdit";
 import { UserList } from "./features/users/UserList";
 import { UserProfile } from "./features/users/UserProfile";
+import { NotFoundCard } from "./components/NotFoundCard";
+import { NotificationList } from "./features/notifications/NotificationList";
 
 
 
@@ -42,17 +44,15 @@ function App() {
           <Route path="/users/edit/:id" element={<ProtectedRoute><UserEdit /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
 
+          <Route path="/notifications" element={<ProtectedRoute><NotificationList /></ProtectedRoute>} />
+
           <Route path="/orders" element={<ProtectedRoute><OrderList /></ProtectedRoute>} />
           <Route path="/orders/edit/:id" element={<ProtectedRoute><OrderEdit /></ProtectedRoute>} />
           <Route path="/orders/create" element={<ProtectedRoute><OrderCreate /></ProtectedRoute>} />
 
           <Route path="/login" element={<Login />} />
 
-          <Route path="*" element={
-            <Box>
-              <Typography variant="h1">404</Typography>
-              <Typography variant="h2">Página não encontrada</Typography>
-            </Box>} />
+          <Route path="*" element={<NotFoundCard/>} />
         </Routes>
       </Layout>
 

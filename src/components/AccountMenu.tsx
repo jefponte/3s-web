@@ -10,9 +10,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { LogoutItemMenu } from './LogoutItemMenu';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { useAppSelector } from '../app/hooks';
 import { selectAuthUser } from '../features/auth/authSlice';
+import { LogoutItemMenu } from './LogoutItemMenu';
 
 export function AccountMenu() {
     const userAuth = useAppSelector(selectAuthUser);

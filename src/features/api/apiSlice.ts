@@ -6,7 +6,7 @@ const baseUrl = 'http://127.0.0.1:8000/api';
 
 export const apiSlice = createApi({
     reducerPath: "api",
-    tagTypes: ["Services", "Divisions", "Users", "Orders"],
+    tagTypes: ["Services", "Divisions", "Users", "Orders", "Notifications"],
     baseQuery: fetchBaseQuery({
         baseUrl: baseUrl,
         prepareHeaders: (headers, { getState }) => {

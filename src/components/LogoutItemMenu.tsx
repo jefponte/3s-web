@@ -6,9 +6,11 @@ import { Box, Button, IconButton, Toolbar, MenuItem, ListItemIcon } from "@mui/m
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from '@mui/icons-material/Logout';
 import Logout from '@mui/icons-material/Logout';
+import { useAppDispatch } from '../app/hooks';
+import { logOut } from '../features/auth/authSlice';
 
 export const LogoutItemMenu = () => {
-
+    const dispatch  = useAppDispatch();
     const navigate = useNavigate();
     const [logout, statusLogout] = useSendLogOutMutation();
     const { enqueueSnackbar } = useSnackbar();
@@ -16,6 +18,7 @@ export const LogoutItemMenu = () => {
 
     const handleLogout = () => {
         logout({});
+        dispatch(logOut());
     }
 
     useEffect(() => {

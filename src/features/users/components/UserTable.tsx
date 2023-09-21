@@ -39,23 +39,27 @@ export function UserTable({
   };
 
   const columns: GridColDef[] = [
-    { field: "name", headerName: "Name", flex: 1, renderCell: renderNameCell },
-    { field: "description", headerName: "Descrição", flex: 1, renderCell: renderNameCell },
+
     {
       field: "id",
-      headerName: "Actions",
+      headerName: "Id",
       type: "string",
       width: 150,
-      renderCell: renderActionsCell,
+      renderCell: renderNameCell,
     },
+    { field: "name", headerName: "Nome", flex: 1, renderCell: renderNameCell },
+    { field: "email", headerName: "E-mail", flex: 1, renderCell: renderNameCell },
+    { field: "login", headerName: "Login", flex: 1, renderCell: renderNameCell }
   ];
 
   function mapDataToGridRows(data: Results) {
     const { data: users } = data;
-    return users.map((category) => ({
-      id: category.id,
-      name: category.name,
-      created_at: category.created_at,
+    return users.map((user) => ({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      login: user.login,
+      created_at: user.created_at,
     }));
   }
 

@@ -41,17 +41,7 @@ export const UserList = () => {
 
   return (
     <Box maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <Box display="flex" justifyContent="flex-end">
-        <Button
-          variant="contained"
 
-          component={Link}
-          to="/users/create"
-          style={{ marginBottom: "1rem" }}
-        >
-          Adicionar Serviço
-        </Button>
-      </Box>
       <UserTable
         data={data}
         isFetching={isFetching}

@@ -5,6 +5,8 @@ import { useSendLogOutMutation } from './authApiSlice';
 import { Box, Button, IconButton, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useAppDispatch } from '../../app/hooks';
+import { logOut } from './authSlice';
 
 
 export const Logout = () => {
@@ -12,10 +14,12 @@ export const Logout = () => {
     const navigate = useNavigate();
     const [logout, statusLogout] = useSendLogOutMutation();
     const { enqueueSnackbar } = useSnackbar();
+    const dispatch = useAppDispatch();
 
 
     const handleLogout = () => {
         logout({});
+        dispatch(logOut());
     }
 
     useEffect(() => {

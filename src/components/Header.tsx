@@ -35,7 +35,9 @@ export function Header({ toggle, isAuth = false, isDark = false, handleDrawerTog
           <MenuIcon />
         </IconButton>
         <Box sx={{ flexGrow: 1 }} />
+        TESTE DEPLOY GITHUB
         <IconButton sx={{ ml: 1 }} onClick={toggle} color="inherit">
+
           {isDark ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
         {isAuth && <AccountMenu />}

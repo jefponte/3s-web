@@ -28,7 +28,4 @@ build
 
 # Miscellaneous
 *.local
-
-.firebaserc
-firebase.json
-hosting.*
+*.cache

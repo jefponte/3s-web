@@ -44,10 +44,11 @@ export default function ResponsiveDrawer({ open, onClose, isDark }: Props) {
 
   const routes = [
     { path: "/", name: "Início" },
-    { path: "/services", name: "Serviços" },
-    { path: "/divisions", name: "Divisão" },
-    { path: "/users", name: "Usuários" },
     { path: "/orders", name: "Ocorrências" },
+    { path: "/services", name: "Serviços" },
+    { path: "/divisions", name: "Divisões" },
+    { path: "/users", name: "Usuários" },
+
   ];
 
 

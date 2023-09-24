@@ -1,3 +1,6 @@
+import { Service } from "./Service";
+import { User } from "./User";
+
 export interface Results {
     data:  Order[];
     links: Links;
@@ -30,6 +33,9 @@ export interface Order {
     priority:       string | null;
     updated_at:      string | null;
     status:         string;
+    service: Service;
+    customer: User;
+    provider: User;
 }
 
 

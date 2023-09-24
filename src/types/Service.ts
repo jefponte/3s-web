@@ -1,3 +1,5 @@
+import { Division } from "./Division";
+
 export interface Results {
     meta: Meta;
     links: Links;
@@ -17,6 +19,7 @@ export interface Results {
     details: null | string;
     created_at: null | string;
     updated_at: null | string;
+    division: Division;
   }
 
   export interface Links {

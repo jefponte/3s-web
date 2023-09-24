@@ -3,7 +3,7 @@ import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Order } from "../../types/Order";
-import { OrderForm } from "./components/OrderForm";
+import { CardOrderSelected } from "./components/CardOrderSelected";
 import {
   useGetOrderQuery,
   useUpdateOrderMutation,
@@ -49,12 +49,8 @@ export const OrderSelect = () => {
   return (
     <Box>
       <Paper>
-        <Box p={2}>
-          <Box mb={2}>
-            <Typography variant="h4">Edit Order</Typography>
-          </Box>
-        </Box>
-        <OrderForm
+
+        <CardOrderSelected
           isLoading={false}
           order={orderState}
           isdisabled={isFetching || isdisabled}

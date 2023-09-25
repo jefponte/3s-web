@@ -30,7 +30,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
           sx={{
             mt: 5,
             zIndex: 2,
-
             ml: { sm: `${drawerWidth}px` },
           }}
         >
@@ -48,7 +47,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           maxSnack={3}
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
         >
-          <Container maxWidth="xl" sx={{ color: "white", mt: 25, mb: 2 }}>
+          <Container maxWidth={false} sx={{ color: "white", mt: 25, mb: 2 }}>
             {children}
           </Container>
 

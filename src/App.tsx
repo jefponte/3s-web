@@ -17,6 +17,7 @@ import { AuthProfile } from "./features/auth/AuthProfile";
 import { NotFoundCard } from "./components/NotFoundCard";
 import { NotificationList } from "./features/notifications/NotificationList";
 import { OrderSelect } from "./features/orders/OrderSelect";
+import { Kamban } from "./features/orders/components/Kamban";
 
 
 

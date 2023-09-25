@@ -56,7 +56,7 @@ export function CardOrderSelected({
   return (
     <Box p={2}>
       <Grid container spacing={3}>
-        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
+        <Grid item xl={5} lg={12} md={6} sm={12} xs={12}>
           <Card>
             <CardContent>
               <Typography variant="h5" component="div">
@@ -104,7 +104,7 @@ export function CardOrderSelected({
           </Box>
         </Grid>
 
-        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
+        <Grid item xl={4} lg={6} md={6} sm={12} xs={12}>
           <Card>
             <CardContent>
               <Typography variant="h5" component="div">
@@ -143,7 +143,7 @@ export function CardOrderSelected({
           </Card>
 
         </Grid>
-        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
+        <Grid item xl={3} lg={6} md={12} sm={12} xs={12}>
           <Card>
             <CardContent>
               <Typography variant="h5" component="div">

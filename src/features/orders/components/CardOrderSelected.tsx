@@ -2,16 +2,14 @@ import {
   Box,
   Button,
   Card,
-  CardActions,
   CardContent,
-  FormControl,
   Grid,
-  TextField,
-  Typography,
+  Typography
 } from "@mui/material";
-
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { Order } from "../../../types/Order";
+import { TimelineStatusLog } from "./TimelineStatusLog";
+import { Link } from "react-router-dom";
 
 type Props = {
   order: Order;
@@ -20,6 +18,33 @@ type Props = {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
+
+
+const ReadMore = ({ children }: { children: string | null }) => {
+  const text = children;
+  const [isReadMore, setIsReadMore] = useState(true);
+  const toggleReadMore = () => {
+    setIsReadMore(!isReadMore);
+  };
+  if (text === undefined) {
+    return (<></>);
+  }
+  if (text === null) {
+    return (<></>);
+  }
+  if (text.length <= 150) {
+    return <span>{text}</span>;
+  }
+  return (
+    <>
+      {isReadMore ? text.slice(0, 150) + "..." : text}
+      <Button onClick={toggleReadMore}
+        color="primary"
+      >{isReadMore ? "mostrar mais" : " mostrar menos"}</Button>
+    </>
+  );
+};
+
 
 export function CardOrderSelected({
   order,
@@ -30,24 +55,18 @@ export function CardOrderSelected({
 }: Props) {
   return (
     <Box p={2}>
-      <Box p={2}>
-        <Box mb={2}>
-          <Typography variant="h4">Chamado {order.id} - {order.status}</Typography>
-        </Box>
-      </Box>
-
       <Grid container spacing={3}>
         <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
           <Card>
             <CardContent>
+              <Typography variant="h5" component="div">
+                Chamado {order.id} - {order.status}
+              </Typography>
               <Typography>
                 Serviço Solicitado:  {order?.service?.name} - {order?.service?.description}
               </Typography>
               <Typography>
-                Setor Responsável: {order?.service?.division?.name}
-              </Typography>
-              <Typography>
-                Descrição: {order?.description}
+                Descrição: <ReadMore children={order?.description} />
               </Typography>
 
             </CardContent>
@@ -57,18 +76,31 @@ export function CardOrderSelected({
           </Card><br />
           <Card>
             <CardContent>
-              <Typography>
+              {/* <Typography>
                 Patromônio: {order?.tag}
-              </Typography>
+              </Typography> */}
               <Typography>
-                Solução:  {order?.solution}
+                Solução:  <ReadMore children={order?.solution} />
               </Typography>
             </CardContent>
-            {/* <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions> */}
           </Card>
+          <Box display="flex" gap={2} sx={{ mt: 2 }}>
+            <Button variant="contained" component={Link} to="/orders">
+              Voltar
+            </Button>
+
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              component={Link} to={`https://3s.unilab.edu.br/?page=ocorrencia&selecionar=${order.id}`}
+              disabled={isdisabled || isLoading}
+            >
+              {isLoading ? "Loading..." : "Ver no Antigo 3s"}
+            </Button>
+          </Box>
         </Grid>
+
         <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
           <Card>
             <CardContent>
@@ -91,7 +123,7 @@ export function CardOrderSelected({
                 Ramal: {order?.phone_number}
               </Typography>
             </CardContent>
-          </Card><br/>
+          </Card><br />
           <Card>
             <CardContent>
               <Typography variant="h5" component="div">
@@ -105,53 +137,47 @@ export function CardOrderSelected({
               </Typography>
 
             </CardContent>
-            {/* <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions> */}
           </Card>
 
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
           <Card>
             <CardContent>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                Descrição: {order.description}
-              </Typography>
               <Typography variant="h5" component="div">
-                ABCD
+                Histórico
               </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
-              </Typography>
-              <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
-              </Typography>
+              {/* {order?.status_logs?.map((log) => <CardOrderStatusLog key={log.id} status={log} />)} */}
+              <TimelineStatusLog statusLogs={order?.status_logs} />
+              {/* <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                {order?.messages?.map((message) => {
+
+                  return (
+                    <React.Fragment key={message.id}>
+                      <ListItem alignItems="flex-start">
+                        <ListItemAvatar>
+                          <Avatar alt={message?.user?.name} />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={message?.user?.name}
+                          secondary={
+                            <React.Fragment>
+                              {message.message}
+                            </React.Fragment>
+                          }
+                        />
+                      </ListItem>
+                      <Divider variant="inset" component="li" />
+                    </React.Fragment>);
+                })}
+
+
+
+              </List> */}
             </CardContent>
-            <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions>
           </Card>
 
         </Grid>
-        <Grid item xs={12}>
-          <Box display="flex" gap={2}>
-            <Button variant="contained" component={Link} to="/orders">
-              Voltar
-            </Button>
 
-            <Button
-              type="submit"
-              variant="contained"
-              color="secondary"
-              component={Link} to={`https://3s.unilab.edu.br/?page=ocorrencia&selecionar=${order.id}`}
-              disabled={isdisabled || isLoading}
-            >
-              {isLoading ? "Loading..." : "Ver no Antigo 3s"}
-            </Button>
-          </Box>
-        </Grid>
       </Grid>
 
     </Box>

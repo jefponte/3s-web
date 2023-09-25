@@ -51,7 +51,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <Container maxWidth="xl" sx={{ color: "white", mt: 25, mb: 2 }}>
             {children}
           </Container>
+
         </SnackbarProvider>
+
       </Box>
       <Footer />
     </ThemeProvider>

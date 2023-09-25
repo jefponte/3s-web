@@ -44,7 +44,7 @@ export const Login = () => {
         }
     }, [enqueueSnackbar, statusLogin.error, statusLogin.isSuccess]);
     return (
-        <Box>
+        <Box maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
             <Paper>
 
                 <LoginForm

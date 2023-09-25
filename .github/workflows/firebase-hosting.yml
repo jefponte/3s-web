@@ -2,13 +2,9 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
 name: Firebase CI
-
 on:
   push:
     branches: ["main"]
-  pull_request:
-    branches: ["main"]
-
 jobs:
   build:
     runs-on: ubuntu-latest

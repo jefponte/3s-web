@@ -23,18 +23,18 @@ export function MenuChangeView({ view, handleChange }: Props) {
             exclusive
             onChange={handleChange}
         >
-            <ToggleButton value="quilt" aria-label="quilt">
+            {/* <ToggleButton value="quilt" aria-label="quilt">
                 <ViewQuiltIcon />
-            </ToggleButton>
+            </ToggleButton> */}
             <ToggleButton value="list" aria-label="list">
                 <ViewListIcon />
             </ToggleButton>
             <ToggleButton value="kamban" aria-label="kamban">
                 <ViewModuleIcon />
             </ToggleButton>
-            <ToggleButton value="table" aria-label="table">
+            {/* <ToggleButton value="table" aria-label="table">
                 <TableChartIcon />
-            </ToggleButton>
+            </ToggleButton> */}
         </ToggleButtonGroup>
     );
 }

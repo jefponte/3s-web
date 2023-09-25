@@ -4,6 +4,7 @@ import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import ViewQuiltIcon from '@mui/icons-material/ViewQuilt';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import TableChartIcon from '@mui/icons-material/TableChart';
 
 type Props = {
     view: string;
@@ -31,7 +32,9 @@ export function MenuChangeView({ view, handleChange }: Props) {
             <ToggleButton value="kamban" aria-label="kamban">
                 <ViewModuleIcon />
             </ToggleButton>
-
+            <ToggleButton value="table" aria-label="table">
+                <TableChartIcon />
+            </ToggleButton>
         </ToggleButtonGroup>
     );
 }

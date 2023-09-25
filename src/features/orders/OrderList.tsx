@@ -58,26 +58,7 @@ export const OrderList = () => {
     return <Typography>Error fetching orders</Typography>;
   }
 
-  const ShowLayout = ({ layout }: { layout: string }) => {
-    switch (layout) {
-      case 'kamban':
-        return (<Kamban data={data} />);
-      case 'quilt':
-        return (<QuiltOrderView />);
-      case 'table':
-        return (<TableOpenedOrders/>);
-      default:
-        return (<OrderTable
-          data={data}
-          isFetching={isFetching}
-          perPage={options.perPage}
-          rowsPerPage={options.rowsPerPage}
-          handleOnPageChange={handleOnPageChange}
-          handleOnPageSizeChange={handleOnPageSizeChange}
-          handleFilterChange={handleFilterChange}
-        />);
-    }
-  }
+
   return (
     <Box sx={{mb: 4}}>
       <Grid container spacing={3}>
@@ -114,8 +95,8 @@ export const OrderList = () => {
           </Box>
         </Grid>
       </Grid>
-      {/* <ShowLayout layout={view} /> */}
-      <OrderTable
+
+      {view === 'kamban' ? (<Kamban data={data} />) : (<OrderTable
           data={data}
           isFetching={isFetching}
           perPage={options.perPage}
@@ -123,7 +104,8 @@ export const OrderList = () => {
           handleOnPageChange={handleOnPageChange}
           handleOnPageSizeChange={handleOnPageSizeChange}
           handleFilterChange={handleFilterChange}
-        />
+        />)}
+
     </Box>
   );
 };

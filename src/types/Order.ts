@@ -1,3 +1,4 @@
+import { Division } from "./Division";
 import { OrderMessage } from "./OrderMessage";
 import { OrderStatusLog } from "./OrderStatusLog";
 import { Service } from "./Service";
@@ -38,6 +39,7 @@ export interface Order {
     service: Service;
     customer: User;
     provider: User;
+    division: Division;
     status_logs: OrderStatusLog[];
     messages: OrderMessage[];
 }

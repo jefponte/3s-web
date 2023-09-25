@@ -37,7 +37,7 @@ export const ServiceCreate = () => {
   }, [enqueueSnackbar, status.error, status.isSuccess]);
 
   return (
-    <Box maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
+    <Box sx={{ mt: 4, mb: 4 }}>
       <Paper>
         <Box p={2}>
           <Box mb={2}>

@@ -7,6 +7,7 @@ import {
 import { GridFilterModel } from "@mui/x-data-grid";
 import { useState } from "react";
 import { OrderTable } from "./components/OrderTable";
+import { Kamban } from "./components/Kamban";
 
 export const OrderList = () => {
   const [options, setOptions] = useState({
@@ -41,8 +42,10 @@ export const OrderList = () => {
   }
 
   return (
-    <Box maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-      <Box display="flex" justifyContent="flex-end">
+    <Box sx={{ mt: 4, mb: 4 }}>
+
+      <Kamban />
+      {/* <Box display="flex" justifyContent="flex-end">
         <Button
           variant="contained"
           component={Link}
@@ -51,7 +54,7 @@ export const OrderList = () => {
         >
           Abrir Chamado
         </Button>
-      </Box>
+      </Box> */}
       <OrderTable
         data={data}
         isFetching={isFetching}

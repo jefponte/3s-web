@@ -64,13 +64,6 @@ export function OrderTable({
     );
   }
 
-  function renderIsActiveCell(rowData: GridRenderCellParams) {
-    return (
-      <Typography color={rowData.value ? "primary" : "secondary"}>
-        {rowData.value ? "Active" : "Inactive"}
-      </Typography>
-    );
-  }
 
   const rows = data ? mapDataToGridRows(data) : [];
   const rowCount = data?.meta.total || 0;

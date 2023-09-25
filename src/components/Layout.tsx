@@ -30,7 +30,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
           sx={{
             mt: 5,
             zIndex: 2,
-
             ml: { sm: `${drawerWidth}px` },
           }}
         >

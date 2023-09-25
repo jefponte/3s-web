@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import {
   useGetOrdersQuery,
@@ -8,8 +8,18 @@ import { GridFilterModel } from "@mui/x-data-grid";
 import { useState } from "react";
 import { OrderTable } from "./components/OrderTable";
 import { Kamban } from "./components/Kamban";
+import { MenuChangeView } from "./components/MenuChangeView";
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import AddIcon from '@mui/icons-material/Add';
+import { QuiltOrderView } from "./components/QuiltOrderView";
 
 export const OrderList = () => {
+  const [view, setView] = useState<string>('quilt');
+
+  const handleChange = (event: React.MouseEvent<HTMLElement>, nextView: string) => {
+    setView(nextView);
+  };
+
   const [options, setOptions] = useState({
     page: 1,
     search: "",
@@ -41,29 +51,41 @@ export const OrderList = () => {
     return <Typography>Error fetching orders</Typography>;
   }
 
+  const ShowLayout = ({ layout }: { layout: string }) => {
+    switch (layout) {
+      case 'kamban':
+        return (<Kamban />);
+      case 'quilt':
+        return (<QuiltOrderView />);
+      default:
+        return (<OrderTable
+          data={data}
+          isFetching={isFetching}
+          perPage={options.perPage}
+          rowsPerPage={options.rowsPerPage}
+          handleOnPageChange={handleOnPageChange}
+          handleOnPageSizeChange={handleOnPageSizeChange}
+          handleFilterChange={handleFilterChange}
+        />);
+    }
+  }
   return (
-    <Box sx={{ mt: 4, mb: 4 }}>
-
-      <Kamban />
-      {/* <Box display="flex" justifyContent="flex-end">
-        <Button
-          variant="contained"
-          component={Link}
-          to="/orders/create"
-          style={{ marginBottom: "1rem" }}
-        >
-          Abrir Chamado
-        </Button>
-      </Box> */}
-      <OrderTable
-        data={data}
-        isFetching={isFetching}
-        perPage={options.perPage}
-        rowsPerPage={options.rowsPerPage}
-        handleOnPageChange={handleOnPageChange}
-        handleOnPageSizeChange={handleOnPageSizeChange}
-        handleFilterChange={handleFilterChange}
-      />
+    <Box>
+      <Box sx={{ justifyContent: 'flex-end', mb: 4, backgroundColor: "FF0000", display: 'flex' }}>
+        <Box>
+          <IconButton
+            component={Link}
+            to="/orders/create"
+            aria-label="delete" size="large" sx={{ mb: 1, mr: 2 }}>
+            <AddIcon fontSize="inherit" />
+          </IconButton>
+          <IconButton aria-label="delete" size="large" sx={{ mb: 1, mr: 2 }}>
+            <OpenInFullIcon fontSize="inherit" />
+          </IconButton>
+          <MenuChangeView view={view} handleChange={handleChange} />
+        </Box>
+      </Box>
+      <ShowLayout layout={view} />
     </Box>
   );
 };

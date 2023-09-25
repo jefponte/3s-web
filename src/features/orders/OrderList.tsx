@@ -60,15 +60,14 @@ export const OrderList = () => {
 
 
   return (
-    <Box sx={{mb: 4}}>
+    <Box sx={{ mb: 4 }}>
       <Grid container spacing={3}>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
           <Box sx={{ justifyContent: 'flex-start', mb: 4, display: 'flex' }}>
-            {/* <Paper
+            <Paper
               component="form"
-              sx={{ p: '2px 4px', display: 'flex', alignItems: 'center'}}
+              sx={{ p: '2px 4px', display: 'flex', alignItems: 'center' }}
             >
-
               <InputBase
                 sx={{ ml: 1, flex: 1 }}
                 placeholder="Pesquisar"
@@ -77,7 +76,7 @@ export const OrderList = () => {
               <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
                 <SearchIcon />
               </IconButton>
-            </Paper> */}
+            </Paper>
           </Box>
         </Grid>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
@@ -97,14 +96,14 @@ export const OrderList = () => {
       </Grid>
 
       {view === 'kamban' ? (<Kamban data={data} />) : (<OrderTable
-          data={data}
-          isFetching={isFetching}
-          perPage={options.perPage}
-          rowsPerPage={options.rowsPerPage}
-          handleOnPageChange={handleOnPageChange}
-          handleOnPageSizeChange={handleOnPageSizeChange}
-          handleFilterChange={handleFilterChange}
-        />)}
+        data={data}
+        isFetching={isFetching}
+        perPage={options.perPage}
+        rowsPerPage={options.rowsPerPage}
+        handleOnPageChange={handleOnPageChange}
+        handleOnPageSizeChange={handleOnPageSizeChange}
+        handleFilterChange={handleFilterChange}
+      />)}
 
     </Box>
   );

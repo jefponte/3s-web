@@ -8,7 +8,7 @@ import {
     Typography
 } from "@mui/material";
 import React, { useState } from "react";
-import { Order } from "../../../types/Order";
+import { Order, Results } from "../../../types/Order";
 import { TimelineStatusLog } from "./TimelineStatusLog";
 import { Link } from "react-router-dom";
 
@@ -79,17 +79,18 @@ const KambanColumn = () => {
         </Grid>);
 }
 
-export const Kamban = () => {
+export const Kamban = ({ data }: { data: Results | undefined }) => {
+    console.log(data);
     return (
         <>
             <Grid container spacing={3}>
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
 
-                        <Grid container spacing={3}>
-                            <KambanColumn />
-                            <KambanColumn />
-                            <KambanColumn />
-                        </Grid>
+                    <Grid container spacing={3}>
+                        <KambanColumn />
+                        <KambanColumn />
+                        <KambanColumn />
+                    </Grid>
                 </Grid>
             </Grid>
 

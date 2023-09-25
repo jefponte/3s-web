@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js 16.x
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
       - name: Yarn Install
@@ -22,7 +22,7 @@ jobs:
           CI: false
 
       - name: Archive Build
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: build
           path: build
@@ -31,9 +31,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Download Build
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: build
           path: build

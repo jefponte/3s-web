@@ -61,7 +61,7 @@ export const OrderList = () => {
   const ShowLayout = ({ layout }: { layout: string }) => {
     switch (layout) {
       case 'kamban':
-        return (<Kamban />);
+        return (<Kamban data={data} />);
       case 'quilt':
         return (<QuiltOrderView />);
       case 'table':
@@ -79,7 +79,7 @@ export const OrderList = () => {
     }
   }
   return (
-    <Box>
+    <Box sx={{mb: 4}}>
       <Grid container spacing={3}>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
           <Box sx={{ justifyContent: 'flex-start', mb: 4, display: 'flex' }}>
@@ -114,7 +114,16 @@ export const OrderList = () => {
           </Box>
         </Grid>
       </Grid>
-      <ShowLayout layout={view} />
+      {/* <ShowLayout layout={view} /> */}
+      <OrderTable
+          data={data}
+          isFetching={isFetching}
+          perPage={options.perPage}
+          rowsPerPage={options.rowsPerPage}
+          handleOnPageChange={handleOnPageChange}
+          handleOnPageSizeChange={handleOnPageSizeChange}
+          handleFilterChange={handleFilterChange}
+        />
     </Box>
   );
 };

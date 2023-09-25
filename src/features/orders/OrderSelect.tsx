@@ -31,7 +31,6 @@ export const OrderSelect = () => {
 
   useEffect(() => {
     if (order) {
-      console.log(order);
       setOrderState(order.data);
     }
   }, [order]);

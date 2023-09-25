@@ -63,7 +63,10 @@ export function CardOrderSelected({
                 Chamado {order.id} - {order.status}
               </Typography>
               <Typography>
-                Serviço Solicitado:  {order?.service?.name} - {order?.service?.description}
+                Serviço Solicitado: {order?.service?.name} - {order?.service?.description}
+              </Typography>
+              <Typography>
+                Setor Responsável: {order?.service?.division?.name} - {order?.service?.division?.description}
               </Typography>
               <Typography>
                 Descrição: <ReadMore children={order?.description} />

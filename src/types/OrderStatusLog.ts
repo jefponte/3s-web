@@ -13,7 +13,7 @@ export interface OrderStatusLog {
     order_id:   number;
     message:   string | null;
     user_id:    number;
-    created_at: string | null;
+    created_at: string;
     updated_at: string | null;
     status:    string;
     user: User;

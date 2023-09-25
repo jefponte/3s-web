@@ -46,7 +46,7 @@ export const DivisionEdit = () => {
   }, [enqueueSnackbar, status.error, status.isSuccess]);
 
   return (
-    <Box>
+    <Box maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
       <Paper>
         <Box p={2}>
           <Box mb={2}>

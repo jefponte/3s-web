@@ -44,7 +44,7 @@ export const NotificationList = () => {
   }
 
   return (
-    <Box maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <Box maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
       <NotificationTable
         data={data}
         isFetching={isFetching}

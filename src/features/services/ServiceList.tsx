@@ -57,7 +57,7 @@ export const ServiceList = () => {
   }
 
   return (
-    <Box maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <Box maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
       <Box display="flex" justifyContent="flex-end">
 
         <Button

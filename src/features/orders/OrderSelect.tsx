@@ -47,9 +47,7 @@ export const OrderSelect = () => {
   }, [enqueueSnackbar, status.error, status.isSuccess]);
 
   return (
-    <Box>
-      <Paper>
-
+    <Box maxWidth="xl" sx={{ mb: 2 }}>
         <CardOrderSelected
           isLoading={false}
           order={orderState}
@@ -57,7 +55,6 @@ export const OrderSelect = () => {
           handleSubmit={handleSubmit}
           handleChange={handleChange}
         />
-      </Paper>
     </Box>
   );
 };

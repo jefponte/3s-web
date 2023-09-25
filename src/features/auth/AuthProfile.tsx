@@ -11,7 +11,7 @@ export const AuthProfile = () => {
     const { data: user, isFetching } = useGetUserQuery({ id });
 
     return (
-        <Box>
+        <Box maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
             <Paper>
 
                 <Box

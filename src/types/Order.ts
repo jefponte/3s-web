@@ -1,3 +1,5 @@
+import { OrderMessage } from "./OrderMessage";
+import { OrderStatusLog } from "./OrderStatusLog";
 import { Service } from "./Service";
 import { User } from "./User";
 
@@ -36,6 +38,8 @@ export interface Order {
     service: Service;
     customer: User;
     provider: User;
+    status_logs: OrderStatusLog[];
+    messages: OrderMessage[];
 }
 
 

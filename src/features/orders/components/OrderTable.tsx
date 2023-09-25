@@ -77,7 +77,7 @@ export function OrderTable({
   const rowCount = data?.meta.total || 0;
 
   return (
-    <Box sx={{ display: "flex",  height: 600, width: '100%' }}>
+    <Box sx={{ display: "flex",  height: 500, width: '100%' }}>
       <DataGrid
         rows={rows}
         pagination={true}

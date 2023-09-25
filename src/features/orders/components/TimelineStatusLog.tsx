@@ -35,7 +35,7 @@ export const TimelineStatusLog = ({ statusLogs }: Props) => {
                                 <TimelineDot color={log.status === "committed" || log.status === "closed" ? "success" : "secondary"} />
                                 {!isLastItem && <TimelineConnector />}
                             </TimelineSeparator>
-                            <HtmlTooltip title={`${log?.message} - ${new Date(log.created_at).toLocaleDateString("pt-BR")} - ${new Date(log.created_at).toLocaleTimeString("pt-BR")} - ${log.user.name}`}>
+                            <HtmlTooltip title={`${log?.message} - ${new Date(log.created_at).toLocaleDateString("pt-BR")} - ${new Date(log?.created_at).toLocaleTimeString("pt-BR")} - ${log?.user?.name}`}>
                                 <TimelineContent>{log?.status}</TimelineContent>
                             </HtmlTooltip>
                     </TimelineItem>);

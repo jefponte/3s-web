@@ -39,7 +39,12 @@ export function OrderTable({
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "Id", width: 10, renderCell: renderNameCell },
-    { field: "description", headerName: "Descrição", flex: 1, renderCell: renderNameCell }
+    { field: "serviceName", headerName: "Serviço", flex: 1, renderCell: renderNameCell },
+    { field: "description", headerName: "Descrição", flex: 1, renderCell: renderNameCell },
+    { field: "customerName", headerName: "Cliente", flex: 1, renderCell: renderNameCell },
+    { field: "status", headerName: "Estado", width: 100, renderCell: renderNameCell },
+
+
   ];
 
   function mapDataToGridRows(data: Results) {
@@ -47,6 +52,9 @@ export function OrderTable({
     return orders.map((order) => ({
       id: order.id,
       description: order.description,
+      status: order.status,
+      serviceName: order?.service?.name,
+      customerName: order?.customer?.name,
       created_at: order.created_at,
     }));
   }
@@ -69,7 +77,7 @@ export function OrderTable({
   const rowCount = data?.meta.total || 0;
 
   return (
-    <Box sx={{ display: "flex",  height: 450, width: '100%' }}>
+    <Box sx={{ display: "flex",  height: 600, width: '100%' }}>
       <DataGrid
         rows={rows}
         pagination={true}

@@ -38,7 +38,7 @@ export function OrderTable({
   };
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "Id", width: 10, renderCell: renderNameCell },
+    { field: "id", headerName: "Id", flex: 1, renderCell: renderNameCell },
     { field: "serviceName", headerName: "Serviço", flex: 1, renderCell: renderNameCell },
     { field: "description", headerName: "Descrição", flex: 1, renderCell: renderNameCell },
     { field: "customerName", headerName: "Cliente", flex: 1, renderCell: renderNameCell },

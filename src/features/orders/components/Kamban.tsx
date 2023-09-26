@@ -73,8 +73,8 @@ export const Kamban = ({ data }: { data: Results | undefined }) => {
                 </Box>
             </Grid>);
     }
-    console.log("Todas");
-    console.log(data?.data);
+    // console.log("Todas");
+    // console.log(data?.data);
     if (data === undefined || data?.data === undefined) {
         return <></>;
     }
@@ -100,8 +100,8 @@ export const Kamban = ({ data }: { data: Results | undefined }) => {
             <Grid container spacing={3}>
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                     <Grid container spacing={3}>
-                        <KambanColumn title={"Abertos (34)"} orders={ordersOpeneds} />
-                        <KambanColumn title={"Em Atendimento (34)"} orders={ordersInProgress} />
+                        <KambanColumn title={`Abertos (${ordersOpeneds.length})`} orders={ordersOpeneds} />
+                        <KambanColumn title={`Em Atendimento (${ordersInProgress.length})`} orders={ordersInProgress} />
                         <KambanColumn title={"Fechados"} orders={ordersClosed} />
                     </Grid>
                 </Grid>

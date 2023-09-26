@@ -1,4 +1,4 @@
-import { IconButton, Typography } from "@mui/material";
+import { Button, IconButton, ListItemIcon, ListItemText, MenuItem, MenuList, Modal, Typography } from "@mui/material";
 import {
   DataGrid,
   ptBR,
@@ -10,7 +10,29 @@ import {
 import { Results } from "../../../types/Notification";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
+import React, { useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
+import Search from "@mui/icons-material/Search";
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+type NotificationMap = {
+  id: string;
+  type: string;
+  description: string;
+  order_id: string;
+  userName: string;
+  createdAt: string;
+  createdAtTime: string;
+}
 
 type Props = {
   data: Results | undefined | any;
@@ -32,6 +54,16 @@ export function NotificationTable({
   handleFilterChange,
   handleOnPageSizeChange
 }: Props) {
+
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [notification, setNotification] = useState<NotificationMap | null>(null);
+
+  const handleOpenModal = (params: any) => {
+    console.log(params?.row);
+    setNotification(params?.row);
+    setOpenModal(true);
+  };
+  const handleCloseModal = () => setOpenModal(false);
   const componentProps = {
     toolbar: {
       showQuickFilter: true,
@@ -40,55 +72,65 @@ export function NotificationTable({
   };
 
   const columns: GridColDef[] = [
-    { field: "order_id", headerName: "Ocorrência", flex: 1},
-    { field: "type", headerName: "Tipo", flex: 1},
-    { field: "user_name", headerName: "Usuário", flex: 1},
-    { field: "description", headerName: "Mensagem", flex: 1  },
-    { field: "created_at", headerName: "Data", flex: 1  },
-    { field: "created_at_time", headerName: "Hora", flex: 1 }
+    { field: "order_id", headerName: "Ocorrência", flex: 1 },
+    { field: "type", headerName: "Tipo", flex: 1 },
+    { field: "userName", headerName: "Usuário", flex: 1 },
+    { field: "description", headerName: "Mensagem", flex: 1 },
+    { field: "createdAt", headerName: "Data", flex: 1 },
+    { field: "createdAtTime", headerName: "Hora", flex: 1 }
   ];
 
-  function renderActionsCell(params: GridRenderCellParams) {
-    return (
-      <IconButton
-        color="primary"
-        aria-label="delete"
-        data-testid="delete-button"
-      >
-        <SearchIcon/>
-      </IconButton>
-    );
-  }
   function mapDataToGridRows(data: Results) {
     const { data: notifications } = data;
     return notifications.map((notification) => ({
       id: notification.id,
       type: notification.type,
       order_id: notification.order.id,
-      user_name: notification.user.name,
+      userName: notification.user.name,
       description: notification.message,
-      created_at: new Date(notification.created_at).toLocaleDateString("pt-BR"),
-      created_at_time: new Date(notification.created_at).toLocaleTimeString("pt-BR"),
+      createdAt: new Date(notification.created_at).toLocaleDateString("pt-BR"),
+      createdAtTime: new Date(notification.created_at).toLocaleTimeString("pt-BR"),
     }));
-  }
-
-
-  function renderNameCell(rowData: GridRenderCellParams) {
-    return (
-      <Link
-        style={{ textDecoration: "none" }}
-        to={`/orders/${rowData.id}`}
-      >
-        <Typography color="primary">{rowData.value}</Typography>
-      </Link>
-    );
   }
 
   const rows = data ? mapDataToGridRows(data) : [];
   const rowCount = data?.meta.total || 0;
 
   return (
-    <Box sx={{ display: "flex", height: 450, width: '100%' }}>
+    <>
+    <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+      >
+        <Box sx={style}>
+          <Typography variant="h6" component="h2">
+            Chamado Nº {notification?.order_id}
+          </Typography>
+          <Typography sx={{ mt: 2 }}>
+            {notification?.userName}
+          </Typography>
+          <Typography sx={{ mt: 2 }}>
+            {notification?.description}
+          </Typography>
+          <Typography sx={{ mt: 2 }}>
+            {notification?.createdAt}
+          </Typography>
+          <Typography sx={{ mt: 2 }}>
+            {notification?.createdAtTime}
+          </Typography>
+          <MenuList>
+            <Button component={Link} to={`/orders/${notification?.order_id}`}>
+              <MenuItem>
+                <ListItemIcon>
+                  <Search fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Ver Detalhes</ListItemText>
+              </MenuItem>
+            </Button>
+          </MenuList>
+        </Box>
+      </Modal>
+      <Box sx={{ display: "flex", height: 600, width: '100%' }}>
       <DataGrid
         rows={rows}
         pagination={true}
@@ -109,7 +151,10 @@ export function NotificationTable({
         onFilterModelChange={handleFilterChange}
         onPageSizeChange={handleOnPageSizeChange}
         localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
+        onCellClick={handleOpenModal}
       />
     </Box>
+    </>
+
   );
 }

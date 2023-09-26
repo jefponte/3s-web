@@ -5,6 +5,7 @@ import { Box, Button, IconButton, Toolbar } from "@mui/material";
 import LogoUNILAB from "../assets/img/logo-unilab.png";
 import styled from "styled-components";
 import { AccountMenu } from "./AccountMenu";
+import { NotificationButton } from "../features/notifications/NotificationButton";
 
 
 const ImageLogo = styled(({ ...otherProps }) => <img alt="Logo UNILAB" src={LogoUNILAB} {...otherProps} />)`
@@ -35,9 +36,11 @@ export function Header({ toggle, isAuth = false, isDark = false, handleDrawerTog
           <MenuIcon />
         </IconButton>
         <Box sx={{ flexGrow: 1 }} />
-        <IconButton sx={{ ml: 1 }} onClick={toggle} color="inherit">
+
+        <IconButton sx={{ ml: 2 }} onClick={toggle} color="inherit">
           {isDark ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
+        <NotificationButton />
         {isAuth && <AccountMenu />}
         <ImageLogo />
       </Toolbar>

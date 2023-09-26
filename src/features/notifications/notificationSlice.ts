@@ -1,9 +1,9 @@
-import { Result, Results, ServiceParams, Service } from "../../types/Service";
+import { Result, Results, NotificationParams, Notification } from "../../types/Notification";
 import { apiSlice } from "../api/apiSlice";
 
 const endpointUrl = "/notifications";
 
-function parseQueryParams(params: ServiceParams) {
+function parseQueryParams(params: NotificationParams) {
   const query = new URLSearchParams();
 
   if (params.page) {
@@ -26,11 +26,16 @@ function getNotifications({ page = 1, perPage = 10, search = "" }) {
 
 export const notificationsApiSlice = apiSlice.injectEndpoints({
   endpoints: ({ query, mutation }) => ({
-    getNotifications: query<Results, ServiceParams>({
+    getNotifications: query<Results, NotificationParams>({
       query: getNotifications,
       providesTags: ["Notifications"],
-    })
+    }),
+    refreshList: query<Results, NotificationParams>({
+      query: getNotifications,
+      providesTags: ["Notifications"],
+    }),
   }),
+
 });
 
 

@@ -6,6 +6,9 @@ export interface Results {
   links: Links;
   meta:  Meta;
 }
+export interface Result {
+  data:  Notification;
+}
 
 export interface Notification {
     id:        string;
@@ -34,7 +37,7 @@ export interface Links {
     current_page: number;
   }
 
-  export interface UserParams {
+  export interface NotificationParams {
     page?: number;
     perPage?: number;
     search?: string;

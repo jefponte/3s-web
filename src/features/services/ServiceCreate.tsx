@@ -21,10 +21,7 @@ export const ServiceCreate = () => {
     setServiceState({ ...serviceState, [name]: value });
   };
 
-  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    setServiceState({ ...serviceState, [name]: checked });
-  };
+
 
   useEffect(() => {
     if (status.isSuccess) {

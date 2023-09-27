@@ -1,36 +1,35 @@
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import PersonIcon from '@mui/icons-material/Person';
-import Avatar from '@mui/material/Avatar';
+import { Badge } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Badge } from '@mui/material';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Typography from '@mui/material/Typography';
-import { useGetNotificationsQuery } from './notificationSlice';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Notification } from '../../types/Notification';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
-import AutorenewIcon from '@mui/icons-material/Autorenew';
+import { useGetNotificationsQuery } from './notificationSlice';
 
 
 export function NotificationButton() {
-
+    const [lastRefreshDateTime, setLastRefreshDateTime] = useState(null);
+    const [newMessageCount, setNewMessageCount] = useState(0);
     const [options, setOptions] = useState({
         page: 1,
         search: "",
         perPage: 10,
         rowsPerPage: [10, 50, 100],
     });
-    const { data, isFetching, error } = useGetNotificationsQuery(options);
+    const { data, isFetching, error, refetch } = useGetNotificationsQuery(options);
 
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -65,6 +64,16 @@ export function NotificationButton() {
                 return <ChatBubbleIcon />;
         }
     }
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            refetch();
+        }, 30000);
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [refetch]);
+
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>

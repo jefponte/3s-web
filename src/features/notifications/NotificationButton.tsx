@@ -16,13 +16,15 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Notification } from '../../types/Notification';
+import { Notification, Results } from '../../types/Notification';
 import { useGetNotificationsQuery } from './notificationSlice';
-
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 export function NotificationButton() {
-    const [lastRefreshDateTime, setLastRefreshDateTime] = useState(null);
+    const [lastId, setLastId] = useState<string>();
     const [newMessageCount, setNewMessageCount] = useState(0);
+    const [newDataState, setNewDataState] = useState<Notification[]>([] as Notification[]);
+
     const [options, setOptions] = useState({
         page: 1,
         search: "",
@@ -38,6 +40,8 @@ export function NotificationButton() {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
+        setNewMessageCount(0);
+        setNewDataState([] as Notification[]);
         setAnchorEl(null);
     };
     const messageByType = (notification: Notification) => {
@@ -68,16 +72,27 @@ export function NotificationButton() {
     useEffect(() => {
         const intervalId = setInterval(() => {
             refetch();
-        }, 30000);
+        }, 5000);
         return () => {
             clearInterval(intervalId);
         };
     }, [refetch]);
+    useEffect(() => {
+        if (data != null && data.data[0].id != lastId) {
+            setLastId(data.data[0].id);
+            const index = data.data.findIndex(element => element.id === lastId);
+            if (index != -1) {
+                const newData = data.data.slice(0, index);
+                setNewMessageCount(newMessageCount + newData.length);
+                setNewDataState([...newData, ...newDataState]);
+            }
+        }
+    }, [data]);
 
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Tooltip title={`Você tem ${data?.data.length} notificações`}>
+                <Tooltip title={(newDataState.length === 0) ? "Você não tem notificações" : `Você tem ${newDataState.length} notificações`}>
                     <IconButton
                         onClick={handleClick}
                         size="small"
@@ -86,8 +101,8 @@ export function NotificationButton() {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Badge badgeContent={data?.data.length} color="primary">
-                            <NotificationsNoneIcon sx={{ color: "#FFFFFF", width: 32, height: 32 }} />
+                        <Badge badgeContent={newMessageCount} color="primary">
+                            {open ? (<NotificationsIcon sx={{ color: "#FFFFFF", width: 32, height: 32 }} />) : (<NotificationsNoneIcon sx={{ color: "#FFFFFF", width: 32, height: 32 }} />)}
                         </Badge>
                     </IconButton>
                 </Tooltip>
@@ -104,7 +119,7 @@ export function NotificationButton() {
             >
                 <List sx={{ width: '100%', maxWidth: 360 }}>
 
-                    {data?.data?.map((element) => {
+                    {newDataState?.map((element) => {
                         const [primeiroNome] = element.user.name.split(' ');
 
 
@@ -138,6 +153,14 @@ export function NotificationButton() {
                             </React.Fragment>
                         );
                     })}
+                    {newDataState.length === 0 ? (
+                        <>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText
+                                    primary={"Nenhuma Nova Notificação"}
+                                />
+                            </ListItem>
+                        </>) : (<></>)}
 
                     <Link to="/notifications" style={{ textDecoration: 'none', color: 'inherit' }}>
                         <MenuItem onClick={handleClose}>

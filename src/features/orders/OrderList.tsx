@@ -52,7 +52,12 @@ export const OrderList = () => {
     const search = filterModel.quickFilterValues.join("");
     setOptions({ ...options, search });
   }
-
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setTimeout(() => {
+      setOptions({ ...options, search: value });
+    }, 500);
+  };
 
   if (error) {
     return <Typography>Error fetching orders</Typography>;
@@ -71,6 +76,7 @@ export const OrderList = () => {
               <InputBase
                 sx={{ ml: 1, flex: 1 }}
                 placeholder="Pesquisar"
+                onChange={handleSearchChange}
                 inputProps={{ 'aria-label': 'pesquisar' }}
               />
               <IconButton type="button" sx={{ p: '10px' }} aria-label="search">

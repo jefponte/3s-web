@@ -30,7 +30,8 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.1",
     "react-router-dom": "6",
-    "styled-components": "^6.0.7"
+    "styled-components": "^6.0.7",
+    "polyglot-react-redux-sdk": "https://github.com/jefponte/polyglot-react-redux-sdk"
   },
   "devDependencies": {
     "@testing-library/dom": "^9.2.0",

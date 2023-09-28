@@ -29,11 +29,7 @@ export const notificationsApiSlice = apiSlice.injectEndpoints({
     getNotifications: query<Results, NotificationParams>({
       query: getNotifications,
       providesTags: ["Notifications"],
-    }),
-    refreshList: query<Results, NotificationParams>({
-      query: getNotifications,
-      providesTags: ["Notifications"],
-    }),
+    })
   }),
 
 });

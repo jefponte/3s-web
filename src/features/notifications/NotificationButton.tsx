@@ -72,7 +72,7 @@ export function NotificationButton() {
     useEffect(() => {
         const intervalId = setInterval(() => {
             refetch();
-        }, 5000);
+        }, 1000);
         return () => {
             clearInterval(intervalId);
         };
@@ -162,11 +162,11 @@ export function NotificationButton() {
                             </ListItem>
                         </>) : (<></>)}
 
-                    <Link to="/notifications" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    {/* <Link to="/notifications" style={{ textDecoration: 'none', color: 'inherit' }}>
                         <MenuItem onClick={handleClose}>
                             Ver Tudo
                         </MenuItem>
-                    </Link>
+                    </Link> */}
 
                 </List>
             </Menu>

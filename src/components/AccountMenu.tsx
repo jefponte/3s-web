@@ -13,8 +13,15 @@ import { Link } from 'react-router-dom';
 import { useAppSelector } from '../app/hooks';
 import { selectAuthUser } from '../features/auth/authSlice';
 import { LogoutItemMenu } from './LogoutItemMenu';
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 
-export function AccountMenu() {
+
+type Props = {
+    toggleTheme: () => void;
+    isDark?: boolean;
+}
+export function AccountMenu({ isDark, toggleTheme }: Props) {
     const userAuth = useAppSelector(selectAuthUser);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -37,7 +44,7 @@ export function AccountMenu() {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar sx={{ width: 32, height: 32 }}>{userAuth?.name?.substr(0,1)}</Avatar>
+                        <Avatar sx={{ width: 32, height: 32 }}>{userAuth?.name?.substr(0, 1)}</Avatar>
                     </IconButton>
                 </Tooltip>
             </Box>
@@ -84,14 +91,12 @@ export function AccountMenu() {
                         Perfil
                     </MenuItem>
                 </Link>
-                <Link to="/notifications" style={{ textDecoration: 'none', color: 'inherit' }}>
-                    <MenuItem onClick={handleClose}>
-                        <ListItemIcon>
-                            <NotificationsNoneIcon fontSize="small" />
-                        </ListItemIcon>
-                        Notificações
-                    </MenuItem>
-                </Link>
+                <MenuItem onClick={toggleTheme}>
+                    <ListItemIcon>
+                        {isDark ? <Brightness7Icon /> : <Brightness4Icon />}
+                    </ListItemIcon>
+                    Mudar Tema
+                </MenuItem>
                 <Divider />
 
                 {/* <MenuItem onClick={handleClose}>

@@ -74,7 +74,6 @@ export default function ResponsiveDrawer({ open, onClose, isDark }: Props) {
           </Link>
         ))}
       </List>
-      <Logout/>
     </div>
   );
 

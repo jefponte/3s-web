@@ -14,13 +14,23 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../app/hooks';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { selectAuthUser } from '../features/auth/authSlice';
 import { LogoutItemMenu } from './LogoutItemMenu';
 import TranslateIcon from '@mui/icons-material/Translate';
 import { Button } from "@mui/material";
-import { useAppDispatch } from '../app/hooks';
 import { setLocale } from '../features/polyglot/polyglotSlice';
+import { selectLocale } from "../features/polyglot/polyglotSlice";
+type Lang  = {
+    value: string;
+    label: string;
+}
+const languages = [
+    { value: "pt-BR", label: "Português(Brazil)" },
+    { value: "en", label: "English" },
+    { value: "es", label: "Español" },
+    { value: "fr", label: "Français" }
+];
 
 
 type Props = {
@@ -28,11 +38,14 @@ type Props = {
     isDark?: boolean;
 }
 export function AccountMenu({ isDark, toggleTheme }: Props) {
+
+    const locale = useAppSelector(selectLocale);
     const dispatch = useAppDispatch();
     const userAuth = useAppSelector(selectAuthUser);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
+    const localeSelected: Lang | undefined = languages.find(language => language.value === locale);
 
     const [anchorElLanguage, setAnchorElLanguage] = React.useState<null | HTMLElement>(null);
     const openLanguage = Boolean(anchorElLanguage);
@@ -123,7 +136,7 @@ export function AccountMenu({ isDark, toggleTheme }: Props) {
                     <ListItemIcon>
                         <TranslateIcon fontSize="small" />
                     </ListItemIcon>
-                    Idioma: Português
+                    Idioma: {localeSelected?.label}
                 </MenuItem>
                 {/* <MenuItem onClick={handleClose}>
                     <ListItemIcon>

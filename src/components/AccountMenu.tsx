@@ -115,9 +115,9 @@ export function AccountMenu({ isDark, toggleTheme }: Props) {
                         <Avatar /> Perfil
                     </MenuItem>
                 </Link>
-                <MenuItem onClick={handleClose}>
+                {/* <MenuItem onClick={handleClose}>
                     <Avatar /> My account
-                </MenuItem>
+                </MenuItem> */}
                 <Divider />
                 <MenuItem onClick={handleClickLanguage} id="language-menu-button">
                     <ListItemIcon>
@@ -125,12 +125,12 @@ export function AccountMenu({ isDark, toggleTheme }: Props) {
                     </ListItemIcon>
                     Idioma: Português
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                {/* <MenuItem onClick={handleClose}>
                     <ListItemIcon>
                         <Settings fontSize="small" />
                     </ListItemIcon>
                     Settings
-                </MenuItem>
+                </MenuItem> */}
 
 
 

@@ -2,7 +2,8 @@ import { RootState } from "../../app/store";
 import { createSlice } from "@reduxjs/toolkit";
 import content from '../../content.json';
 
-const defaultLanguage = navigator.language.split("-")[0];
+const defaultLanguage = navigator.language;
+
 const isValidLanguage = (lang: string): lang is keyof typeof content => {
     return content.hasOwnProperty(lang);
 };

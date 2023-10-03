@@ -21,10 +21,7 @@ export const OrderCreate = () => {
     setOrderState({ ...orderState, [name]: value });
   };
 
-  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    setOrderState({ ...orderState, [name]: checked });
-  };
+
 
   useEffect(() => {
     if (status.isSuccess) {

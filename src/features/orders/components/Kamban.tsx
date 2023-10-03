@@ -12,10 +12,10 @@ import React, { useState } from "react";
 import { Order, Results } from "../../../types/Order";
 import { TimelineStatusLog } from "./TimelineStatusLog";
 import { Link } from "react-router-dom";
-
+import useTranslate from '../../polyglot/useTranslate';
 
 export const Kamban = ({ data }: { data: Results | undefined }) => {
-
+    const translate = useTranslate('status');
     const CardKambanOrder = ({ order }: { order: Order }) => {
         return <>
             <Grid item xl={6} lg={12} md={12} sm={12} xs={12}>
@@ -23,7 +23,7 @@ export const Kamban = ({ data }: { data: Results | undefined }) => {
                     <CardActionArea component={Link} to={`/orders/${order.id}`}>
                         <CardContent>
 
-                            <Chip label={order?.status} color="info" />
+                            <Chip label={translate(order?.status)} color="info" />
                             <Typography>
                                 #{order?.id}
                             </Typography>

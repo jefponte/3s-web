@@ -2,10 +2,12 @@ import { authSlice } from './../features/auth/authSlice';
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { servicesApiSlice } from "../features/services/serviceSlice";
 import { apiSlice } from "../features/api/apiSlice";
+import polyglotSlice from '../features/polyglot/polyglotSlice';
 
 
 export const store = configureStore({
   reducer: {
+    polyglot: polyglotSlice,
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: authSlice.reducer,
   },

@@ -6,7 +6,7 @@ import {
     CardContent,
     Chip,
     Grid,
-    Typography
+    Typography, Paper
 } from "@mui/material";
 import React, { useState } from "react";
 import { Order, Results } from "../../../types/Order";
@@ -22,29 +22,28 @@ export const Kamban = ({ data }: { data: Results | undefined }) => {
                 <Card>
                     <CardActionArea component={Link} to={`/orders/${order.id}`}>
                         <CardContent>
-
-                            <Chip label={translate(order?.status)} color="info" />
+                            <Chip sx={{borderRadius: 1, marginBottom: 1}} label={`${translate(order?.status)} `} color="info" />
                             <Typography>
-                                #{order?.id}
+                                # {order?.id}
                             </Typography>
                             <Typography>
                                 Serviço: {order?.service.name}
                             </Typography>
-                            <Typography>
+                            {/* <Typography>
                                 Descrição: {order?.service.name}
-                            </Typography>
+                            </Typography> */}
                             <Typography>
                                 Cliente: {order?.customer.name}
                             </Typography>
-                            <Typography>
+                            {/* <Typography>
                                 Técnico: {order?.provider?.name}
-                            </Typography>
+                            </Typography> */}
                             <Typography>
                                 Aberto em: {order.created_at}
                             </Typography>
-                            <Typography>
+                            {/* <Typography>
                                 Fechado em: {order?.finished_at}
-                            </Typography>
+                            </Typography> */}
 
                         </CardContent>
                     </CardActionArea >
@@ -57,20 +56,24 @@ export const Kamban = ({ data }: { data: Results | undefined }) => {
     const KambanColumn = ({ title, orders }: { title: string; orders: Order[] }) => {
         return (
             <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+
                 <Box>
                     <Card>
-                        <CardContent>
-                            <Typography variant="h5" component="div">
-                                {title}
-                            </Typography>
-                            <Grid container spacing={3}>
-                                {orders.map((order) => {
-                                    return (<CardKambanOrder key={order.id} order={order} />);
-                                })}
-                            </Grid>
-                        </CardContent>
+                        <Paper elevation={6}>
+                            <CardContent>
+                                <Typography variant="h5" component="div">
+                                    {title}
+                                </Typography>
+                                <Grid container spacing={3}>
+                                    {orders.map((order) => {
+                                        return (<CardKambanOrder key={order.id} order={order} />);
+                                    })}
+                                </Grid>
+                            </CardContent>
+                        </Paper>
                     </Card>
                 </Box>
+
             </Grid>);
     }
     // console.log("Todas");
@@ -98,13 +101,13 @@ export const Kamban = ({ data }: { data: Results | undefined }) => {
     return (
         <>
             <Grid container spacing={3}>
-                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                    <Grid container spacing={3}>
-                        <KambanColumn title={`Abertos (${ordersOpeneds.length})`} orders={ordersOpeneds} />
-                        <KambanColumn title={`Em Atendimento (${ordersInProgress.length})`} orders={ordersInProgress} />
-                        <KambanColumn title={"Fechados"} orders={ordersClosed} />
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                        <Grid container spacing={3}>
+                            <KambanColumn title={`Abertos (${ordersOpeneds.length})`} orders={ordersOpeneds} />
+                            <KambanColumn title={`Em Atendimento (${ordersInProgress.length})`} orders={ordersInProgress} />
+                            <KambanColumn title={"Fechados"} orders={ordersClosed} />
+                        </Grid>
                     </Grid>
-                </Grid>
             </Grid>
 
         </>

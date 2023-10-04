@@ -26,7 +26,7 @@ type Lang  = {
     label: string;
 }
 const languages = [
-    { value: "pt-BR", label: "Português(Brazil)" },
+    { value: "pt-BR", label: "Português" },
     { value: "en", label: "English" },
     { value: "es", label: "Español" },
     { value: "fr", label: "Français" }

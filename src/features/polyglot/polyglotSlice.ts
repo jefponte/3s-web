@@ -8,7 +8,7 @@ const isValidLanguage = (lang: string): lang is keyof typeof content => {
     return content.hasOwnProperty(lang);
 };
 
-const languageToUse = isValidLanguage(defaultLanguage) ? defaultLanguage : 'pt';
+const languageToUse = isValidLanguage(defaultLanguage) ? defaultLanguage : 'pt-BR';
 interface PolyglotState {
     locale: string;
     phrases: { default: any;[key: string]: any };

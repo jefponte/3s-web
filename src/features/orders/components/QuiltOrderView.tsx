@@ -1,94 +1,112 @@
-import * as React from 'react';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Grid, Box, Paper, Card, CardContent } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { red } from '@mui/material/colors';
+import * as React from 'react';
+import { Order, Results } from '../../../types/Order';
+import { Link } from 'react-router-dom';
 
-export function QuiltOrderView() {
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+export const QuiltOrderView = ({ data }: { data: Results | undefined }) => {
+  const [open, setOpen] = React.useState(true);
 
-  const handleChange =
-    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
-    };
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
+
+
+
+  if (data === undefined || data?.data === undefined) {
+    return <></>;
+  }
+  const ordersOpeneds = data.data.filter(order => {
+    return (
+      order.status === 'opened'
+      || order.status === 'reopened');
+  });
+  const ordersInProgress = data.data.filter(order => {
+    return (order.status === 'in progress'
+      || order.status === 'pending it resource'
+      || order.status === 'pending customer response');
+  });
+  const ordersClosed = data.data.filter(order => {
+    return (
+      order.status === 'canceled'
+      || order.status === 'closed'
+      || order.status === 'committed');
+  });
+
+  const CardAccordion = ({ title, orders, initialState }: { title: string, orders: Order[], initialState: boolean }) => {
+    const [expanded, setExpanded] = React.useState<boolean>(initialState);
+    const handleChange =
+      (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+        setExpanded((prev) => !prev);
+      };
+    return (<Accordion expanded={expanded} onChange={handleChange('panel1')}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1bh-content"
+        id="panel1bh-header"
+      >
+        <Typography sx={{ width: '33%', flexShrink: 0 }}>
+          {title} ({orders.length})
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <List
+          sx={{ width: '100%' }}
+          component="nav"
+          aria-labelledby="nested-list-subheader">
+
+          {orders.map((order) => {
+            return (
+              <Link to={`/orders/${order.id}`} key={order.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <ListItemButton sx={{ bgcolor: red[300] }} onClick={handleClick}>
+                  <ListItemText primary={`${order.service.name} - ${order.description.substring(0, 200)}`} />
+                </ListItemButton>
+              </Link>
+            );
+          })}
+        </List>
+      </AccordionDetails>
+    </Accordion>);
+  }
   return (
     <div>
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>
-            Ocorrências Em Atraso (164)
-          </Typography>
+      <Grid container spacing={3}>
+        <Grid item xl={8} lg={8} md={6} sm={12} xs={12}>
+          <CardAccordion title="Ocorrências em atraso" orders={ordersOpeneds} initialState={true} />
+          <CardAccordion title="Ocorrências em aberto" orders={ordersOpeneds} initialState={true} />
+          <CardAccordion title="Ocorrências em atendimento" orders={ordersInProgress} initialState={true} />
+          <CardAccordion title="Ocorrências fechadas" orders={ordersClosed} initialState={false} />
+        </Grid>
+        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
 
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-            Aliquam eget maximus est, id dignissim quam.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2bh-content"
-          id="panel2bh-header"
-        >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>Users</Typography>
-          <Typography sx={{ color: 'text.secondary' }}>
-            You are currently not an owner
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus,
-            varius pulvinar diam eros in elit. Pellentesque convallis laoreet
-            laoreet.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel3bh-content"
-          id="panel3bh-header"
-        >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>
-            Advanced settings
-          </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>
-            Filtering has been entirely disabled for whole web server
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
-            amet egestas eros, vitae egestas augue. Duis vel est augue.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>Personal data</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
-            amet egestas eros, vitae egestas augue. Duis vel est augue.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+          <Card>
+            <Paper elevation={6}>
+              <CardContent>
+                <Typography variant="h5" component="div">
+                  Filtros e Informações
+                </Typography>
+
+              </CardContent>
+            </Paper>
+          </Card>
+
+        </Grid>
+      </Grid>
+
+
+
     </div>
   );
 }
+
 
 

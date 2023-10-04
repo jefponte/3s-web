@@ -10,6 +10,8 @@ import {
 } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { Results } from "../../../types/Order";
+import useTranslate from '../../polyglot/useTranslate';
+
 type Props = {
   data: Results | undefined;
   perPage: number;
@@ -30,6 +32,7 @@ export function OrderTable({
   handleFilterChange,
   handleOnPageSizeChange
 }: Props) {
+  const translate = useTranslate('status');
   const componentProps = {
     toolbar: {
       showQuickFilter: true,
@@ -52,7 +55,7 @@ export function OrderTable({
     return orders.map((order) => ({
       id: order.id,
       description: order.description,
-      status: order.status,
+      status: translate(order.status),
       serviceName: order?.service?.name,
       customerName: order?.customer?.name,
       created_at: order.created_at,

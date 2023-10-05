@@ -13,16 +13,33 @@ import { Order, Results } from "../../../types/Order";
 import { TimelineStatusLog } from "./TimelineStatusLog";
 import { Link } from "react-router-dom";
 import useTranslate from '../../polyglot/useTranslate';
+import { red, lightBlue, teal, lime } from '@mui/material/colors';
 
+const colorByStatus = (status: string) => {
+    switch (status) {
+      case 'opened':
+        return lime[900];
+      case 'in progress':
+        return lightBlue[300];
+      case 'closed':
+        return teal[200];
+      case 'committed':
+        return teal[300];
+
+      default:
+        return red[300];
+    }
+
+  }
 export const Kamban = ({ data }: { data: Results | undefined }) => {
     const translate = useTranslate('status');
     const CardKambanOrder = ({ order }: { order: Order }) => {
         return <>
             <Grid item xl={6} lg={12} md={12} sm={12} xs={12}>
-                <Card>
+                <Card sx={{ backgroundColor: colorByStatus(order.status)}}>
                     <CardActionArea component={Link} to={`/orders/${order.id}`}>
                         <CardContent>
-                            <Chip sx={{borderRadius: 1, marginBottom: 1}} label={`${translate(order?.status)} `} color="info" />
+
                             <Typography>
                                 # {order?.id}
                             </Typography>
@@ -32,6 +49,11 @@ export const Kamban = ({ data }: { data: Results | undefined }) => {
                             {/* <Typography>
                                 Descrição: {order?.service.name}
                             </Typography> */}
+
+                            <Typography>
+                                Descrição: {translate(order?.status)}
+                            </Typography>
+
                             <Typography>
                                 Cliente: {order?.customer.name}
                             </Typography>
@@ -64,7 +86,7 @@ export const Kamban = ({ data }: { data: Results | undefined }) => {
                                 <Typography variant="h5" component="div">
                                     {title}
                                 </Typography>
-                                <Grid container spacing={3}>
+                                <Grid container spacing={3} sx={{padding: 4}}>
                                     {orders.map((order) => {
                                         return (<CardKambanOrder key={order.id} order={order} />);
                                     })}

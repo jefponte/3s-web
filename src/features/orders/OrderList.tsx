@@ -64,25 +64,6 @@ export const OrderList = () => {
   }
 
 
-  const ShowOrderList = () => {
-
-    switch (view) {
-      case 'kamban':
-        return (<Kamban data={data} />);
-      case 'quilt':
-        return (<QuiltOrderView data={data} />);
-      default:
-        return (<OrderTable
-          data={data}
-          isFetching={isFetching}
-          perPage={options.perPage}
-          rowsPerPage={options.rowsPerPage}
-          handleOnPageChange={handleOnPageChange}
-          handleOnPageSizeChange={handleOnPageSizeChange}
-          handleFilterChange={handleFilterChange}
-        />);
-    }
-  }
   return (
     <Box sx={{ mb: 4 }}>
       <Grid container spacing={3}>
@@ -112,16 +93,25 @@ export const OrderList = () => {
               aria-label="delete" size="large" sx={{ mb: 1, mr: 2 }}>
               <AddIcon fontSize="inherit" />
             </IconButton>
-             <IconButton aria-label="delete" size="large" sx={{ mb: 1, mr: 2 }}>
+            <IconButton aria-label="delete" size="large" sx={{ mb: 1, mr: 2 }}>
               <OpenInFullIcon fontSize="inherit" />
             </IconButton>
             <MenuChangeView view={view} handleChange={handleChange} />
           </Box>
         </Grid>
       </Grid>
+      {(view === 'quilt') && (<QuiltOrderView data={data} />)}
+      {(view === 'kamban') && (<Kamban data={data} />)}
+      {(view === 'list') && (<OrderTable
+        data={data}
+        isFetching={isFetching}
+        perPage={options.perPage}
+        rowsPerPage={options.rowsPerPage}
+        handleOnPageChange={handleOnPageChange}
+        handleOnPageSizeChange={handleOnPageSizeChange}
+        handleFilterChange={handleFilterChange}
+      />)}
 
-
-      <ShowOrderList />
     </Box>
   );
 };

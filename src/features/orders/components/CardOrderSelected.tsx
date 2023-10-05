@@ -32,7 +32,7 @@ const ReadMore = ({ children }: { children: string | null }) => {
   if (text === null) {
     return (<></>);
   }
-  if (text.length <= 150) {
+  if (text.length >= 150) {
     return <span>{text}</span>;
   }
   return (

@@ -7,7 +7,7 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
+import { red, lightBlue, teal, lime } from '@mui/material/colors';
 import * as React from 'react';
 import { Order, Results } from '../../../types/Order';
 import { Link } from 'react-router-dom';
@@ -41,13 +41,32 @@ export const QuiltOrderView = ({ data }: { data: Results | undefined }) => {
       || order.status === 'closed'
       || order.status === 'committed');
   });
+  const colorByStatus = (status: string) => {
+    switch (status) {
+      case 'opened':
+        return lime[900];
+      case 'in progress':
+        return lightBlue[300];
+      case 'closed':
+        return teal[200];
+      case 'committed':
+        return teal[300];
 
+      default:
+        return red[300];
+    }
+
+  }
   const CardAccordion = ({ title, orders, initialState }: { title: string, orders: Order[], initialState: boolean }) => {
     const [expanded, setExpanded] = React.useState<boolean>(initialState);
     const handleChange =
       (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
         setExpanded((prev) => !prev);
       };
+
+
+
+
     return (<Accordion expanded={expanded} onChange={handleChange('panel1')}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
@@ -65,10 +84,14 @@ export const QuiltOrderView = ({ data }: { data: Results | undefined }) => {
           aria-labelledby="nested-list-subheader">
 
           {orders.map((order) => {
+            const description = (order.description.length >= 150) ? order.description.slice(0, 150) + "..." : order.description;
             return (
-              <Link to={`/orders/${order.id}`} key={order.id} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <ListItemButton sx={{ bgcolor: red[300] }} onClick={handleClick}>
-                  <ListItemText primary={`${order.service.name} - ${order.description.substring(0, 200)}`} />
+              <Link to={`/orders/${order.id}`} key={order.id} style={{ textDecoration: 'none', color: 'inherit' }} >
+                <ListItemButton sx={{
+                  bgcolor: colorByStatus(order.status), borderRadius: 1, '--Grid-borderWidth': '1px',
+                  borderTop: 'var(--Grid-borderWidth) solid', borderColor: 'divider'
+                }} onClick={handleClick}>
+                  <ListItemText primary={`#${order.service.id} - ${order.service.name} - ${description}`} />
                 </ListItemButton>
               </Link>
             );
@@ -81,7 +104,7 @@ export const QuiltOrderView = ({ data }: { data: Results | undefined }) => {
     <div>
       <Grid container spacing={3}>
         <Grid item xl={8} lg={8} md={6} sm={12} xs={12}>
-          <CardAccordion title="Ocorrências em atraso" orders={ordersOpeneds} initialState={true} />
+          {/* <CardAccordion title="Ocorrências em atraso" orders={ordersOpeneds} initialState={true} /> */}
           <CardAccordion title="Ocorrências em aberto" orders={ordersOpeneds} initialState={true} />
           <CardAccordion title="Ocorrências em atendimento" orders={ordersInProgress} initialState={true} />
           <CardAccordion title="Ocorrências fechadas" orders={ordersClosed} initialState={false} />

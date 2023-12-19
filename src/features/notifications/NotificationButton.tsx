@@ -72,7 +72,7 @@ export function NotificationButton() {
     useEffect(() => {
         const intervalId = setInterval(() => {
             refetch();
-        }, 60000);
+        }, 3000);
         return () => {
             clearInterval(intervalId);
         };

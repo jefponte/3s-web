@@ -1,14 +1,64 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>React Redux App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/x-icon" href="/src/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3s | Sistema de Solicitação de Serviços</title>
+</head>
+<style>
+  #barra-brasil {
+    z-index: 3;
+    padding: 0;
+    width: 100%;
+    position: absolute;
+    display: block;
+  }
+
+  #menu-barra-temp {
+    list-style: none;
+    margin: 0
+  }
+
+  #menu-barra-temp li {
+    display: inline;
+    float: left;
+    padding-right: 10px;
+    margin-right: 10px;
+    border-right: 1px solid #ededed
+  }
+
+  #menu-barra-temp a {
+    font-family: sans, sans-serif;
+    text-decoration: none;
+    color: #fff
+  }
+
+  #barra-brasil .conteudo-barra-brasil {
+    min-height: 40px;
+    max-width: 3840px !important;
+    width: 97% !important
+  }
+
+  #barra-brasil {
+    background: #313235 !important;
+    border-bottom: 1px solid #313235
+  }
+</style>
+
+<body>
+  <div id="barra-brasil">
+    <ul id="menu-barra-temp">
+      <li>
+        <a href="http://brasil.gov.br">Portal do Governo Brasileiro</a>
+      </li>
+    </ul>
+  </div>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+  <script defer="defer" src="//barra.brasil.gov.br/barra_2.0.js" type="text/javascript"></script>
+</body>
+
 </html>

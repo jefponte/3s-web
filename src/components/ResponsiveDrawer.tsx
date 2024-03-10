@@ -10,20 +10,20 @@ import {
   ListItemText,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-
+import Logo3s from "../assets/img/logo-3s.png";
+import Logo3sBlack from "../assets/img/logo-3s-black.png";
+import styled from "styled-components";
 import { Logout } from "../features/auth/Logout";
-import  styled  from "@emotion/styled";
 
-import Logo3s from "../../../assets/img/logo-3s.png";
-import Logo3sBlack from "../../../assets/img/logo-3s-black.png";
 
-const ImageLogo = styled("img")`
-  width: 50%;
-  padding: 10px;
-`;
 
-const ImageLogoBlack = styled("img")`
-  width: 50%;
+const ImageLogo = styled(({ ...otherProps }) => <img alt="Logo UNILAB" src={Logo3s} {...otherProps} />)`
+    width: "50%";
+    padding: 10px;
+  `;
+
+const ImageLogoBlack = styled(({ ...otherProps }) => <img alt="Logo UNILAB" src={Logo3sBlack} {...otherProps} />)`
+  width: "50%";
   padding: 10px;
 `;
 

@@ -3,12 +3,12 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, Button, IconButton, Toolbar } from "@mui/material";
 import LogoUNILAB from "../assets/img/logo-unilab.png";
-import  styled  from "@emotion/styled";
+import styled from "styled-components";
 import { AccountMenu } from "./AccountMenu";
 import { NotificationButton } from "../features/notifications/NotificationButton";
 
 
-const ImageLogo = styled("img")`
+const ImageLogo = styled(({ ...otherProps }) => <img alt="Logo UNILAB" src={LogoUNILAB} {...otherProps} />)`
   width: 300px;
   padding: 30px;
 `;

@@ -11,20 +11,20 @@ import { useTheme } from "@mui/material";
 import { useState, useEffect } from 'react';
 import { Credentials } from '../authApiSlice';
 import { Link } from "react-router-dom";
-import styled  from "@emotion/styled";
 import Logo3s from "../../../assets/img/logo-3s.png";
 import Logo3sBlack from "../../../assets/img/logo-3s-black.png";
+import styled from "styled-components";
 
-const ImageLogo = styled("img")`
-  width: 50%;
+
+const ImageLogo = styled(({ ...otherProps }) => <img alt="Logo UNILAB" src={Logo3s} {...otherProps} />)`
+    width: "50%";
+    padding: 10px;
+  `;
+
+const ImageLogoBlack = styled(({ ...otherProps }) => <img alt="Logo UNILAB" src={Logo3sBlack} {...otherProps} />)`
+  width: "50%";
   padding: 10px;
 `;
-
-const ImageLogoBlack = styled("img")`
-  width: 50%;
-  padding: 10px;
-`;
-
 
 
 type Props = {

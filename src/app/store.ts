@@ -1,3 +1,4 @@
+
 import { authSlice } from './../features/auth/authSlice';
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { servicesApiSlice } from "../features/services/serviceSlice";
@@ -11,8 +12,10 @@ export const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: authSlice.reducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware)
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(apiSlice.middleware);
+  }
+
 })
 
 export type AppDispatch = typeof store.dispatch
@@ -23,3 +26,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >
+
+

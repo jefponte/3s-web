@@ -1,21 +1,24 @@
 import React from "react"
-import ReactDOM from "react-dom/client"
+import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
-import { store } from "./app/store"
 import App from "./App"
+import { store } from "./app/store"
 import "./index.css"
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-import { BrowserRouter } from "react-router-dom"
 
+const container = document.getElementById("root")
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+if (container) {
+  const root = createRoot(container)
 
-    <BrowserRouter>
+  root.render(
+    <React.StrictMode>
       <Provider store={store}>
         <App />
       </Provider>
-    </BrowserRouter>,
-)
+    </React.StrictMode>,
+  )
+} else {
+  throw new Error(
+    "Root element with ID 'root' was not found in the document. Ensure there is a corresponding HTML element with the ID 'root' in your HTML file.",
+  )
+}

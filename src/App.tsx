@@ -21,7 +21,7 @@ const App = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            React
+            Start Another Template
           </a>
           <span>, </span>
           <a

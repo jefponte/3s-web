@@ -6,6 +6,10 @@ import {
 import { GridFilterModel } from "@mui/x-data-grid";
 import { useState } from "react";
 import { UserTable } from "./components/UserTable";
+interface PaginationModel {
+  pageSize: number;
+  page: number;
+}
 
 export const UserList = () => {
   const [options, setOptions] = useState({
@@ -16,20 +20,15 @@ export const UserList = () => {
   });
   const { data, isFetching, error } = useGetUsersQuery(options);
 
-  function handleOnPageChange(page: number) {
-    setOptions({ ...options, page: page + 1 });
+  function setPaginationModel(paginateModel:{ page: number, pageSize: number }){
+    setOptions({ ...options, page: paginateModel.page + 1, perPage: paginateModel.pageSize});
   }
-
-  function handleOnPageSizeChange(perPage: number) {
-    setOptions({ ...options, perPage });
-  }
-
   function handleFilterChange(filterModel: GridFilterModel) {
+
     if (!filterModel.quickFilterValues?.length) {
       return setOptions({ ...options, search: "" });
     }
-
-    const search = filterModel.quickFilterValues.join("");
+    const search = filterModel.quickFilterValues.join(" ");
     setOptions({ ...options, search });
   }
 
@@ -41,12 +40,13 @@ export const UserList = () => {
     <Box sx={{ mt: 4, mb: 4 }}>
 
       <UserTable
-        data={data}
+        users={data}
         isFetching={isFetching}
-        perPage={options.perPage}
-        rowsPerPage={options.rowsPerPage}
-        handleOnPageChange={handleOnPageChange}
-        handleOnPageSizeChange={handleOnPageSizeChange}
+        paginationModel={{
+          pageSize: 25,
+          page: 0,
+        }}
+        handleSetPaginationModel={setPaginationModel}
         handleFilterChange={handleFilterChange}
       />
     </Box>

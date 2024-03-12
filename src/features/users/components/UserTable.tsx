@@ -10,32 +10,31 @@ import {
 } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { Results } from "../../../types/User";
-type Props = {
-  data: Results | undefined;
-  perPage: number;
-  isFetching: boolean;
-  rowsPerPage?: number[];
+import { useDemoData } from '@mui/x-data-grid-generator';
 
-  handleOnPageChange: (page: number) => void;
+type Props = {
+  users: Results | undefined;
+  paginationModel: object;
+  isFetching: boolean;
+  handleSetPaginationModel: (paginateModel: { page: number, pageSize: number }) => void;
   handleFilterChange: (filterModel: GridFilterModel) => void;
-  handleOnPageSizeChange: (perPage: number) => void;
 };
 
 export function UserTable({
-  data,
-  perPage,
+  users,
+  paginationModel,
   isFetching,
-  rowsPerPage,
-  handleOnPageChange,
+  handleSetPaginationModel,
   handleFilterChange,
-  handleOnPageSizeChange
+
 }: Props) {
-  const componentProps = {
-    toolbar: {
-      showQuickFilter: true,
-      quickFilterProps: { debounceMs: 500 },
-    },
-  };
+  const { data  } = useDemoData({
+    dataSet: 'Commodity',
+    rowLength: 100,
+    maxColumns: 6,
+  });
+
+
 
   const columns: GridColDef[] = [
 
@@ -75,17 +74,23 @@ export function UserTable({
   }
 
 
-  const rows = data ? mapDataToGridRows(data) : [];
-  const rowCount = data?.meta.total || 0;
+  const rows = users ? mapDataToGridRows(users) : [];
+  const rowCount = users?.meta.total || 0;
 
   return (
     <Box sx={{ display: "flex", height: 450, width: '100%' }}>
-      HERE IS THE TABLE
-      {/* <DataGrid
-        rows={rows}
-        pagination={true}
+      <DataGrid
+        {...data}
+        initialState={{
+          ...data.initialState,
+          pagination: {
+            ...data.initialState?.pagination,
+            paginationModel: paginationModel,
+          },
+        }}
+        onPaginationModelChange={handleSetPaginationModel}
         columns={columns}
-        pageSize={perPage}
+        rows={rows}
         filterMode="server"
         rowCount={rowCount}
         loading={isFetching}
@@ -94,14 +99,15 @@ export function UserTable({
         disableColumnFilter={true}
         disableColumnSelector={true}
         disableDensitySelector={true}
-        rowsPerPageOptions={rowsPerPage}
-        componentsProps={componentProps}
-        onPageChange={handleOnPageChange}
-        components={{ Toolbar: GridToolbar }}
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{
+          toolbar: {
+            showQuickFilter: true,
+          },
+        }}
         onFilterModelChange={handleFilterChange}
-        onPageSizeChange={handleOnPageSizeChange}
         localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
-      /> */}
+      />
     </Box>
   );
 }

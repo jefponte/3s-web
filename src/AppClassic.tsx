@@ -16,8 +16,10 @@ import { UserList } from './features/users/UserList';
 import { UserEdit } from './features/users/UserEdit';
 import { AuthProfile } from './features/auth/AuthProfile';
 import { NotificationList } from './features/notifications/NotificationList';
-import { Login } from '@mui/icons-material';
+
 import { NotFoundCard } from './components/NotFoundCard';
+import { ForbiddenPage } from './components/ForbiddenPage';
+import { Login } from './features/auth/Login';
 
 const AppClassic = () => {
     return (
@@ -45,11 +47,8 @@ const AppClassic = () => {
                     <Route path="/profile" element={<ProtectedRoute><AuthProfile /></ProtectedRoute>} />
 
                     <Route path="/notifications" element={<ProtectedRoute><NotificationList /></ProtectedRoute>} />
-
-
-
                     <Route path="/login" element={<Login />} />
-
+                    <Route path="/forbidden" element={<ForbiddenPage />} />
                     <Route path="*" element={<NotFoundCard />} />
                 </Routes>
             </LayoutClassic>

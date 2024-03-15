@@ -18,6 +18,7 @@ import { NotFoundCard } from "./components/NotFoundCard";
 import { NotificationList } from "./features/notifications/NotificationList";
 import { OrderSelect } from "./features/orders/OrderSelect";
 import { Kamban } from "./features/orders/components/Kamban";
+import { ForbiddenPage } from "./components/ForbiddenPage";
 
 
 
@@ -57,7 +58,7 @@ function App() {
 
 
           <Route path="/login" element={<Login />} />
-
+          <Route path="/forbidden" element={<ForbiddenPage />} />
           <Route path="*" element={<NotFoundCard/>} />
         </Routes>
       </Layout>

@@ -1,17 +1,17 @@
-import { Box, Button, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
 import {
-  useDeleteServiceMutation,
   useGetServicesQuery,
 } from "./serviceSlice";
 
 import { GridFilterModel } from "@mui/x-data-grid";
-import { useSnackbar } from "notistack";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ServiceTable } from "./components/ServiceTable";
+interface PaginationModel {
+  pageSize: number;
+  page: number;
+}
 
 export const ServiceList = () => {
-  const { enqueueSnackbar } = useSnackbar();
   const [options, setOptions] = useState({
     page: 1,
     search: "",
@@ -19,64 +19,36 @@ export const ServiceList = () => {
     rowsPerPage: [10, 20, 30],
   });
   const { data, isFetching, error } = useGetServicesQuery(options);
-  const [deleteService, { error: deleteError, isSuccess: deleteSuccess }] =
-  useDeleteServiceMutation();
 
-  function handleOnPageChange(page: number) {
-    setOptions({ ...options, page: page + 1 });
+  function setPaginationModel(paginateModel:{ page: number, pageSize: number }){
+    setOptions({ ...options, page: paginateModel.page + 1, perPage: paginateModel.pageSize});
   }
-
-  function handleOnPageSizeChange(perPage: number) {
-    setOptions({ ...options, perPage });
-  }
-
   function handleFilterChange(filterModel: GridFilterModel) {
+
     if (!filterModel.quickFilterValues?.length) {
       return setOptions({ ...options, search: "" });
     }
-
-    const search = filterModel.quickFilterValues.join("");
+    const search = filterModel.quickFilterValues.join(" ");
     setOptions({ ...options, search });
   }
-
-  async function handleDeleteService(id: string) {
-    await deleteService({ id });
-  }
-
-  useEffect(() => {
-    if (deleteSuccess) {
-      enqueueSnackbar(`Service deleted`, { variant: "success" });
-    }
-    if (deleteError) {
-      enqueueSnackbar(`Service not deleted`, { variant: "error" });
-    }
-  }, [deleteSuccess, deleteError, enqueueSnackbar]);
 
   if (error) {
     return <Typography>Error fetching services</Typography>;
   }
 
   return (
-    <Box sx={{ mt: 4, mb: 4 }}>
-      <Box display="flex" justifyContent="flex-end">
-
-        <Button
-          variant="contained"
-          component={Link}
-          to="/services/create"
-          style={{ marginBottom: "1rem" }}
-        >
-          Adicionar Serviço
-        </Button>
-      </Box>
+    <Box sx={{ mt: 0, mb: 0 }}>
+      <h3 className="pb-4 mb-2 fst-italic border-bottom">
+          Usuários
+      </h3>
       <ServiceTable
-        data={data}
+        services={data}
         isFetching={isFetching}
-        perPage={options.perPage}
-        rowsPerPage={options.rowsPerPage}
-        handleDelete={handleDeleteService}
-        handleOnPageChange={handleOnPageChange}
-        handleOnPageSizeChange={handleOnPageSizeChange}
+        paginationModel={{
+          pageSize: 25,
+          page: 0,
+        }}
+        handleSetPaginationModel={setPaginationModel}
         handleFilterChange={handleFilterChange}
       />
     </Box>

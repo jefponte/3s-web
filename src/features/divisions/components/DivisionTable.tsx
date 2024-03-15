@@ -1,79 +1,64 @@
-import { IconButton, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import {
   DataGrid,
-  ptBR,
   GridColDef,
   GridFilterModel,
   GridRenderCellParams,
   GridToolbar,
+  ptBR,
 } from "@mui/x-data-grid";
-import { Results } from "../../../types/Division";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
-import { Box } from "@mui/system";
-type Props = {
-  data: Results | undefined;
-  perPage: number;
-  isFetching: boolean;
-  rowsPerPage?: number[];
+import { Results } from "../../../types/Division";
+import { useDemoData } from '@mui/x-data-grid-generator';
 
-  handleOnPageChange: (page: number) => void;
+type Props = {
+  divisions: Results | undefined;
+  paginationModel: object;
+  isFetching: boolean;
+  handleSetPaginationModel: (paginateModel: { page: number, pageSize: number }) => void;
   handleFilterChange: (filterModel: GridFilterModel) => void;
-  handleOnPageSizeChange: (perPage: number) => void;
-  handleDelete: (id: string) => void;
 };
 
 export function DivisionTable({
-  data,
-  perPage,
+  divisions,
+  paginationModel,
   isFetching,
-  rowsPerPage,
-  handleOnPageChange,
+  handleSetPaginationModel,
   handleFilterChange,
-  handleOnPageSizeChange,
-  handleDelete,
+
 }: Props) {
-  const componentProps = {
-    toolbar: {
-      showQuickFilter: true,
-      quickFilterProps: { debounceMs: 500 },
-    },
-  };
+  const { data  } = useDemoData({
+    dataSet: 'Commodity',
+    rowLength: 100,
+    maxColumns: 6,
+  });
+
+
 
   const columns: GridColDef[] = [
-    { field: "name", headerName: "Name", flex: 1, renderCell: renderNameCell },
-    { field: "description", headerName: "Descrição", flex: 1, renderCell: renderNameCell },
+
     {
       field: "id",
-      headerName: "Actions",
+      headerName: "Id",
       type: "string",
       width: 150,
-      renderCell: renderActionsCell,
+      renderCell: renderNameCell,
     },
+    { field: "name", headerName: "Nome", flex: 1, renderCell: renderNameCell },
+    { field: "email", headerName: "E-mail", flex: 1, renderCell: renderNameCell },
   ];
 
   function mapDataToGridRows(data: Results) {
-    const { data: division } = data;
-    return division.map((category) => ({
-      id: category.id,
-      name: category.name,
-      description: category.description,
-      created_at: category.created_at,
+    const { data: divisions } = data;
+    return divisions.map((division) => ({
+      id: division.id,
+      name: division.name,
+      email: division.email,
+      created_at: division.created_at,
     }));
   }
 
-  function renderActionsCell(params: GridRenderCellParams) {
-    return (
-      <IconButton
-        color="secondary"
-        onClick={() => handleDelete(params.value)}
-        aria-label="delete"
-        data-testid="delete-button"
-      >
-        <DeleteIcon />
-      </IconButton>
-    );
-  }
 
   function renderNameCell(rowData: GridRenderCellParams) {
     return (
@@ -86,25 +71,24 @@ export function DivisionTable({
     );
   }
 
-  function renderIsActiveCell(rowData: GridRenderCellParams) {
-    return (
-      <Typography color={rowData.value ? "primary" : "secondary"}>
-        {rowData.value ? "Active" : "Inactive"}
-      </Typography>
-    );
-  }
 
-  const rows = data ? mapDataToGridRows(data) : [];
-  const rowCount = data?.meta.total || 0;
+  const rows = divisions ? mapDataToGridRows(divisions) : [];
+  const rowCount = divisions?.meta.total || 0;
 
   return (
     <Box sx={{ display: "flex", height: 450, width: '100%' }}>
-      HERE IS THE TABLE
-      {/* <DataGrid
-        rows={rows}
-        pagination={true}
+      <DataGrid
+        {...data}
+        initialState={{
+          ...data.initialState,
+          pagination: {
+            ...data.initialState?.pagination,
+            paginationModel: paginationModel,
+          },
+        }}
+        onPaginationModelChange={handleSetPaginationModel}
         columns={columns}
-        pageSize={perPage}
+        rows={rows}
         filterMode="server"
         rowCount={rowCount}
         loading={isFetching}
@@ -113,14 +97,15 @@ export function DivisionTable({
         disableColumnFilter={true}
         disableColumnSelector={true}
         disableDensitySelector={true}
-        rowsPerPageOptions={rowsPerPage}
-        componentsProps={componentProps}
-        onPageChange={handleOnPageChange}
-        components={{ Toolbar: GridToolbar }}
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{
+          toolbar: {
+            showQuickFilter: true,
+          },
+        }}
         onFilterModelChange={handleFilterChange}
-        onPageSizeChange={handleOnPageSizeChange}
         localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
-      /> */}
+      />
     </Box>
   );
 }

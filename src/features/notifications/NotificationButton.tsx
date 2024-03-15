@@ -102,7 +102,7 @@ export function NotificationButton() {
                         aria-expanded={open ? 'true' : undefined}
                     >
                         <Badge badgeContent={newMessageCount} color="primary">
-                            {open ? (<NotificationsIcon sx={{ color: "#FFFFFF", width: 32, height: 32 }} />) : (<NotificationsNoneIcon sx={{ color: "#FFFFFF", width: 32, height: 32 }} />)}
+                            {open ? (<NotificationsIcon sx={{ color: "#c0c0c0", width: 32, height: 32 }} />) : (<NotificationsNoneIcon sx={{ color: "#c0c0c0", width: 32, height: 32 }} />)}
                         </Badge>
                     </IconButton>
                 </Tooltip>

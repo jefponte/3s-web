@@ -37,8 +37,10 @@ export const UserList = () => {
   }
 
   return (
-    <Box sx={{ mt: 4, mb: 4 }}>
-
+    <Box sx={{ mt: 0, mb: 0 }}>
+      <h3 className="pb-4 mb-2 fst-italic border-bottom">
+          Usuários
+      </h3>
       <UserTable
         users={data}
         isFetching={isFetching}

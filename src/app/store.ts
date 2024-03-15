@@ -1,6 +1,5 @@
 import { authSlice } from './../features/auth/authSlice';
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import { servicesApiSlice } from "../features/services/serviceSlice";
 import { apiSlice } from "../features/api/apiSlice";
 import polyglotSlice from '../features/polyglot/polyglotSlice';
 

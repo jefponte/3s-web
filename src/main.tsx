@@ -9,6 +9,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { BrowserRouter } from "react-router-dom";
+import { AppClassic } from "./AppClassic"
 
 const container = document.getElementById("root")
 
@@ -18,7 +19,8 @@ if (container) {
   root.render(
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <AppClassic />
+        {/* <App/> */}
       </Provider>
     </BrowserRouter>,
   )

@@ -16,9 +16,6 @@ import Logo3sBlack from "../../../assets/img/logo-3s-black.png";
 import styled from '@emotion/styled';
 
 
-(({ ...otherProps }) => <img alt="Logo UNILAB" src={Logo3s} {...otherProps} />)`
-
-  `;
 
 const ImageLogo = styled.img({
     width: "50%",

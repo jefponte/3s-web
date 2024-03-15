@@ -26,7 +26,7 @@ const AppClassic = () => {
         <>
             <LayoutClassic>
                 <Routes>
-                    <Route path="/" element={<ProtectedRoute><UserList /></ProtectedRoute>} />
+                    <Route path="/" element={<ProtectedRoute><OrderList /></ProtectedRoute>} />
 
                     <Route path="/orders" element={<ProtectedRoute><OrderList /></ProtectedRoute>} />
                     <Route path="/orders/:id" element={<ProtectedRoute><OrderSelect /></ProtectedRoute>} />

@@ -10,10 +10,15 @@ import { Link } from "react-router-dom";
 import { AccountMenu } from "./AccountMenu";
 import { NotificationButton } from "../features/notifications/NotificationButton";
 
+type Props = {
+    toggle: () => void;
+    isDark?: boolean;
+    handleDrawerToggle?: () => void;
+  };
 
-const NavBar = () => {
+const NavBar = ({ toggle, isDark = false, handleDrawerToggle }: Props) => {
     const routes = [
-        { path: oldApplication, name: "Início" },
+        { path: '/', name: "Início" },
         { path: `${oldApplication}?page=ocorrencia&cadastrar=1`, name: "Abrir Chamado" },
         { path: `${oldApplication}?page=painel_kamban`, name: "Paineis" },
         { path: "/users", name: "Usuários" },
@@ -49,7 +54,7 @@ const NavBar = () => {
                         </ul>
                         <div className="btn-group">
                             <NotificationButton />
-                            <AccountMenu isDark={false} toggleTheme={() => { }} />
+                            <AccountMenu isDark={isDark} toggleTheme={toggle} />
                         </div>
                     </div>
                 </div>

@@ -21,6 +21,8 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import { Button } from "@mui/material";
 import { setLocale } from '../features/polyglot/polyglotSlice';
 import { selectLocale } from "../features/polyglot/polyglotSlice";
+import { useAppTheme } from "../hooks/useAppTheme";
+
 type Lang  = {
     value: string;
     label: string;

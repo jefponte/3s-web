@@ -1,18 +1,28 @@
-import React from 'react'
+import styled from '@emotion/styled';
 import Logo3s from "../assets/img/logo-3s.png";
 import LogoUnilab from "../assets/img/logo-unilab.png";
-import styled from '@emotion/styled';
-
-const ImageLogo = styled.img({
-    width: "300px",
-    padding: '10px'
-});
+import { useAppTheme } from "../hooks/useAppTheme";
+import { useState, useEffect } from 'react';
 
 
-const HeaderClassic = () => {
+
+const HeaderClassic = ({ isDark = false }: {
+    isDark?: boolean;
+}) => {
+    const [currentTheme, toggleCurrentTheme] = useAppTheme();
+
+    const ImageLogo = styled.img({
+        width: "300px",
+        padding: '10px'
+    });
+    const Header = styled.header({
+        backgroundColor: isDark ? '#212529' : '#3fa2db'
+    });
+
+
     return (
 
-        <header>
+        <Header>
             <div className="row">
                 <div className="col-xl-4 col-lg-12 col-md-12 col-sm-12  d-flex justify-content-center">
                     <a className="text-muted" href="#">
@@ -26,12 +36,9 @@ const HeaderClassic = () => {
                     <a className="text-muted" href="#">
                         <ImageLogo src={LogoUnilab} alt="Logo 3s" />
                     </a>
-                    <button className="btn m-4 btn-contraste" id="altocontraste">
-                        <i className="fa fa-adjust text-white"></i>
-                    </button>
                 </div>
             </div>
-        </header>
+        </Header>
 
     )
 }

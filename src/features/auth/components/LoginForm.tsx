@@ -4,23 +4,12 @@ import {
     Button,
     FormControl,
     Grid,
+    TextField,
     Typography,
-    TextField
+    useTheme
 } from "@mui/material";
-import { useTheme } from "@mui/material";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Credentials } from '../authApiSlice';
-import { Link } from "react-router-dom";
-import Logo3s from "../../../assets/img/logo-3s.png";
-import Logo3sBlack from "../../../assets/img/logo-3s-black.png";
-import styled from '@emotion/styled';
-
-
-
-const ImageLogo = styled.img({
-    width: "50%",
-    padding: '10px'
-});
 
 
 
@@ -72,7 +61,6 @@ export const LoginForm = ({
             }}
             p={5}>
             <Box p={2} mb={2}>
-                <ImageLogo src={isDarkMode ? Logo3sBlack : Logo3s} />
                 <Typography component="h1" variant="h5">Formulário de Login</Typography>
             </Box>
             <form

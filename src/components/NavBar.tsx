@@ -7,6 +7,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
+import { AccountMenu } from "./AccountMenu";
+import { NotificationButton } from "../features/notifications/NotificationButton";
 
 
 const NavBar = () => {
@@ -49,17 +51,8 @@ const NavBar = () => {
                             ))}
                         </ul>
                         <div className="btn-group">
-                            <Link
-                                key={'/profile'}
-                                to={'/profile'}
-                                style={{ textDecoration: "none", color: "inherit" }}
-                            >
-                                <ListItem disablePadding>
-                                    <ListItemButton>
-                                        <ListItemText>Olá, Jefferson</ListItemText>
-                                    </ListItemButton>
-                                </ListItem>
-                            </Link>
+                            <NotificationButton />
+                            <AccountMenu isDark={false} toggleTheme={() => {}} />
                         </div>
                     </div>
                 </div>

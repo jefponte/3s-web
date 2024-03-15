@@ -20,6 +20,7 @@ if (container) {
     <BrowserRouter>
       <Provider store={store}>
         <AppClassic />
+        {/* <App/> */}
       </Provider>
     </BrowserRouter>,
   )

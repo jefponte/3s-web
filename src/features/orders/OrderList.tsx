@@ -62,7 +62,9 @@ export const OrderList = () => {
   if (error) {
     return <Typography>Error fetching orders</Typography>;
   }
-
+  function setPaginationModel(paginateModel:{ page: number, pageSize: number }){
+    setOptions({ ...options, page: paginateModel.page + 1, perPage: paginateModel.pageSize});
+  }
 
   return (
     <Box sx={{ mb: 4 }}>
@@ -103,12 +105,13 @@ export const OrderList = () => {
       {(view === 'quilt') && (<QuiltOrderView data={data} />)}
       {(view === 'kamban') && (<Kamban data={data} />)}
       {(view === 'list') && (<OrderTable
-        data={data}
+        orders={data}
         isFetching={isFetching}
-        perPage={options.perPage}
-        rowsPerPage={options.rowsPerPage}
-        handleOnPageChange={handleOnPageChange}
-        handleOnPageSizeChange={handleOnPageSizeChange}
+        paginationModel={{
+          pageSize: 25,
+          page: 0,
+        }}
+        handleSetPaginationModel={setPaginationModel}
         handleFilterChange={handleFilterChange}
       />)}
 

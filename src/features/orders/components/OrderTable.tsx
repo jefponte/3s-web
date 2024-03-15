@@ -10,44 +10,42 @@ import {
 } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { Results } from "../../../types/Order";
-import useTranslate from '../../polyglot/useTranslate';
+import { useDemoData } from '@mui/x-data-grid-generator';
 
 type Props = {
-  data: Results | undefined;
-  perPage: number;
+  orders: Results | undefined;
+  paginationModel: object;
   isFetching: boolean;
-  rowsPerPage?: number[];
-
-  handleOnPageChange: (page: number) => void;
+  handleSetPaginationModel: (paginateModel: { page: number, pageSize: number }) => void;
   handleFilterChange: (filterModel: GridFilterModel) => void;
-  handleOnPageSizeChange: (perPage: number) => void;
 };
 
 export function OrderTable({
-  data,
-  perPage,
+  orders,
+  paginationModel,
   isFetching,
-  rowsPerPage,
-  handleOnPageChange,
+  handleSetPaginationModel,
   handleFilterChange,
-  handleOnPageSizeChange
+
 }: Props) {
-  const translate = useTranslate('status');
-  const componentProps = {
-    toolbar: {
-      showQuickFilter: true,
-      quickFilterProps: { debounceMs: 500 },
-    },
-  };
+  const { data  } = useDemoData({
+    dataSet: 'Commodity',
+    rowLength: 100,
+    maxColumns: 6,
+  });
+
+
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "Id", flex: 1, renderCell: renderNameCell },
-    { field: "serviceName", headerName: "Serviço", flex: 1, renderCell: renderNameCell },
+
+    {
+      field: "id",
+      headerName: "Id",
+      type: "string",
+      width: 150,
+      renderCell: renderNameCell,
+    },
     { field: "description", headerName: "Descrição", flex: 1, renderCell: renderNameCell },
-    { field: "customerName", headerName: "Cliente", flex: 1, renderCell: renderNameCell },
-    { field: "status", headerName: "Estado", width: 100, renderCell: renderNameCell },
-
-
   ];
 
   function mapDataToGridRows(data: Results) {
@@ -55,13 +53,9 @@ export function OrderTable({
     return orders.map((order) => ({
       id: order.id,
       description: order.description,
-      status: translate(order.status),
-      serviceName: order?.service?.name,
-      customerName: order?.customer?.name,
       created_at: order.created_at,
     }));
   }
-
 
 
   function renderNameCell(rowData: GridRenderCellParams) {
@@ -76,17 +70,23 @@ export function OrderTable({
   }
 
 
-  const rows = data ? mapDataToGridRows(data) : [];
-  const rowCount = data?.meta.total || 0;
+  const rows = orders ? mapDataToGridRows(orders) : [];
+  const rowCount = orders?.meta.total || 0;
 
   return (
-    <Box sx={{ display: "flex",  height: 500, width: '100%' }}>
-      HERE IS THE TABLE
-      {/* <DataGrid
-        rows={rows}
-        pagination={true}
+    <Box sx={{ display: "flex", height: 450, width: '100%' }}>
+      <DataGrid
+        {...data}
+        initialState={{
+          ...data.initialState,
+          pagination: {
+            ...data.initialState?.pagination,
+            paginationModel: paginationModel,
+          },
+        }}
+        onPaginationModelChange={handleSetPaginationModel}
         columns={columns}
-        pageSize={perPage}
+        rows={rows}
         filterMode="server"
         rowCount={rowCount}
         loading={isFetching}
@@ -95,14 +95,15 @@ export function OrderTable({
         disableColumnFilter={true}
         disableColumnSelector={true}
         disableDensitySelector={true}
-        rowsPerPageOptions={rowsPerPage}
-        componentsProps={componentProps}
-        onPageChange={handleOnPageChange}
-        components={{ Toolbar: GridToolbar }}
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{
+          toolbar: {
+            showQuickFilter: true,
+          },
+        }}
         onFilterModelChange={handleFilterChange}
-        onPageSizeChange={handleOnPageSizeChange}
         localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
-      /> */}
+      />
     </Box>
   );
 }

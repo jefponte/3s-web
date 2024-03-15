@@ -13,7 +13,7 @@ import { NotificationButton } from "../features/notifications/NotificationButton
 
 const NavBar = () => {
     const routes = [
-        { path: oldApplication, name: "Início" },
+        { path: '/', name: "Início" },
         { path: `${oldApplication}?page=ocorrencia&cadastrar=1`, name: "Abrir Chamado" },
         { path: `${oldApplication}?page=painel_kamban`, name: "Paineis" },
         { path: "/users", name: "Usuários" },

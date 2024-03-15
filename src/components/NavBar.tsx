@@ -18,10 +18,7 @@ const NavBar = () => {
         { path: `${oldApplication}?page=painel_kamban`, name: "Paineis" },
         { path: "/users", name: "Usuários" },
         { path: "/divisions", name: "Unidades" },
-        { path: "/services", name: "Serviços" },
-
-
-
+        { path: "/services", name: "Serviços" }
     ];
 
 
@@ -35,24 +32,24 @@ const NavBar = () => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             {routes.map((route) => (
-                                <li className="nav-item">
-                                    <Link
-                                        key={route.path}
-                                        to={route.path}
-                                        style={{ textDecoration: "none", color: "inherit" }}
-                                    >
-                                        <ListItem disablePadding>
-                                            <ListItemButton>
-                                                <ListItemText>{route.name}</ListItemText>
-                                            </ListItemButton>
-                                        </ListItem>
-                                    </Link>
-                                </li>
+
+                                <Link
+                                    key={route.path}
+                                    to={route.path}
+                                    style={{ textDecoration: "none", color: "inherit" }}
+                                >
+                                    <ListItem disablePadding>
+                                        <ListItemButton>
+                                            <ListItemText>{route.name}</ListItemText>
+                                        </ListItemButton>
+                                    </ListItem>
+                                </Link>
+
                             ))}
                         </ul>
                         <div className="btn-group">
                             <NotificationButton />
-                            <AccountMenu isDark={false} toggleTheme={() => {}} />
+                            <AccountMenu isDark={false} toggleTheme={() => { }} />
                         </div>
                     </div>
                 </div>

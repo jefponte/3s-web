@@ -10,6 +10,8 @@ import React, { useState } from "react";
 import { Order } from "../../../types/Order";
 import { TimelineStatusLog } from "./TimelineStatusLog";
 import { Link } from "react-router-dom";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 type Props = {
   order: Order;
@@ -83,7 +85,14 @@ export function CardOrderSelected({
                 Patromônio: {order?.tag}
               </Typography> */}
               <Typography>
-                Solução:  <ReadMore children={order?.solution} />
+                Solução:
+                <ReactQuill
+                  theme="snow"
+                  value={order?.solution || ""}
+                  onChange={(props) => {
+
+                  }}
+                />
               </Typography>
             </CardContent>
           </Card>

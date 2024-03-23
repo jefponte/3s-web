@@ -21,7 +21,7 @@ import { QuiltOrderView } from "./components/QuiltOrderView";
 import { TableOpenedOrders } from "./components/TableOpenedOrders";
 
 export const OrderList = () => {
-  const [view, setView] = useState<string>('list');
+  const [view, setView] = useState<string>('quilt');
 
   const handleChange = (event: React.MouseEvent<HTMLElement>, nextView: string) => {
     setView(nextView);
@@ -87,6 +87,8 @@ export const OrderList = () => {
             </Paper>
           </Box>
         </Grid>
+        {/*
+          Uma caixa de ferramentas interessante, será disponibilziada depois, depois, depois
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
           <Box sx={{ justifyContent: 'flex-end', mb: 4, display: 'flex' }}>
             <IconButton
@@ -100,7 +102,7 @@ export const OrderList = () => {
             </IconButton>
             <MenuChangeView view={view} handleChange={handleChange} />
           </Box>
-        </Grid>
+        </Grid> */}
       </Grid>
       {(view === 'quilt') && (<QuiltOrderView data={data} />)}
       {(view === 'kamban') && (<Kamban data={data} />)}

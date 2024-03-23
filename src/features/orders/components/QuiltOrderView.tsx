@@ -11,6 +11,7 @@ import { red, lightBlue, teal, lime } from '@mui/material/colors';
 import * as React from 'react';
 import { Order, Results } from '../../../types/Order';
 import { Link } from 'react-router-dom';
+import CardFilter from '../../../components/CardFilter';
 
 export const QuiltOrderView = ({ data }: { data: Results | undefined }) => {
   const [open, setOpen] = React.useState(true);
@@ -111,16 +112,7 @@ export const QuiltOrderView = ({ data }: { data: Results | undefined }) => {
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
 
-          <Card>
-            <Paper elevation={6}>
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  Filtros e Informações
-                </Typography>
-
-              </CardContent>
-            </Paper>
-          </Card>
+        <CardFilter />
 
         </Grid>
       </Grid>

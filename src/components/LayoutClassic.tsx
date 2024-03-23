@@ -39,19 +39,8 @@ const LayoutClassic = ({ children }: { children: React.ReactNode }) => {
                     >
                         <main className="container card p-5">
                             <div className="row g-5">
-                                <div className="col-md-8">
+                                <div className="col-md-12">
                                     {children}
-                                </div>
-                                <div className="col-md-4">
-                                    <div className="position-sticky">
-
-                                        {isAuthenticated ? <CardFilter /> : <></>}
-                                        <div className="p-4 mb-3 bg-body-tertiary rounded">
-                                            <h4 className="fst-italic">3s em novas tecnologias</h4>
-                                            <p className="mb-0">Esta versão do 3s foi reconstruída utilizando o React e o Typescript. Além de estar na esteira de software com deploys automatizado e diversas técnicas e práticas mais recentes do mercado.</p>
-                                        </div>
-
-                                    </div>
                                 </div>
                             </div>
 

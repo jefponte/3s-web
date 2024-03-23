@@ -42,21 +42,32 @@ export const QuiltOrderView = ({ data }: { data: Results | undefined }) => {
       || order.status === 'closed'
       || order.status === 'committed');
   });
-  const colorByStatus = (status: string) => {
+
+  const colorItem = (status: string) => {
+    const style = {
+      bgcolor: '#FCF8E3', borderRadius: 1, '--Grid-borderWidth': '1px',
+      color: '#000000',
+      borderTop: 'var(--Grid-borderWidth) solid', borderColor: 'divider'
+    };
     switch (status) {
-      case 'opened':
-        return lime[900];
+      case 'opened' || 'reserved':
+        return {
+          ...style,
+          bgcolor: '#FCF8E3'
+        };
       case 'in progress':
-        return lightBlue[300];
-      case 'closed':
-        return teal[200];
-      case 'committed':
-        return teal[300];
-
+        return {
+          ...style,
+          bgcolor: '#D9EDF7',
+        };
+      case 'closed' || 'committed':
+        return {
+          ...style,
+          bgcolor: '#DFF0D8',
+        };
       default:
-        return red[300];
+        return style;
     }
-
   }
   const CardAccordion = ({ title, orders, initialState }: { title: string, orders: Order[], initialState: boolean }) => {
     const [expanded, setExpanded] = React.useState<boolean>(initialState);
@@ -86,12 +97,10 @@ export const QuiltOrderView = ({ data }: { data: Results | undefined }) => {
 
           {orders.map((order) => {
             const description = (order.description.length >= 150) ? order.description.slice(0, 150) + "..." : order.description;
+            const item = colorItem(order.status);
             return (
               <Link to={`/orders/${order.id}`} key={order.id} style={{ textDecoration: 'none', color: 'inherit' }} >
-                <ListItemButton sx={{
-                  bgcolor: colorByStatus(order.status), borderRadius: 1, '--Grid-borderWidth': '1px',
-                  borderTop: 'var(--Grid-borderWidth) solid', borderColor: 'divider'
-                }} onClick={handleClick}>
+                <ListItemButton sx={{ ...item }} onClick={handleClick}>
                   <ListItemText primary={`#${order.service.id} - ${order.service.name} - ${description}`} />
                 </ListItemButton>
               </Link>
@@ -112,7 +121,7 @@ export const QuiltOrderView = ({ data }: { data: Results | undefined }) => {
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
 
-        <CardFilter />
+          <CardFilter />
 
         </Grid>
       </Grid>

@@ -38,12 +38,12 @@ export const OrderCreate = () => {
       <Paper>
         <Box p={2}>
           <Box mb={2}>
-            <Typography variant="h4">Create Order</Typography>
+            <Typography variant="h4">Cadastrar Ocorrência</Typography>
           </Box>
         </Box>
         <OrderForm
           isLoading={false}
-          isdisabled={isdisabled}
+          isDisabled={isdisabled}
           order={orderState}
           handleSubmit={handleSubmit}
           handleChange={handleChange}

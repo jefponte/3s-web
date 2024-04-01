@@ -19,7 +19,7 @@ type Props = {
 const NavBar = ({ toggle, isDark = false, handleDrawerToggle }: Props) => {
     const routes = [
         { path: '/', name: "Início" },
-        { path: `${oldApplication}?page=ocorrencia&cadastrar=1`, name: "Abrir Chamado" },
+        { path: `/orders/create`, name: "Abrir Chamado" },
         { path: `${oldApplication}?page=painel_kamban`, name: "Paineis" },
         { path: "/users", name: "Usuários" },
         { path: "/divisions", name: "Unidades" },

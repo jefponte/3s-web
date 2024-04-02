@@ -41,21 +41,6 @@ export function OrderForm({
 }: Props) {
 
 
-  const handleRemoveThumbnail = () => {
-    handleRemoveFile("thumb_file");
-  };
-
-  const handleRemoveBanner = () => {
-    handleRemoveFile("banner_file");
-  };
-
-  const handleRemoveTrailer = () => {
-    handleRemoveFile("trailer_file");
-  };
-
-  const handleRemoveOrder = () => {
-    handleRemoveFile("order_file");
-  };
   const editorStyle = {
     height: '200px',
   };
@@ -68,7 +53,7 @@ export function OrderForm({
             <FormControl fullWidth>
               <TextField
                 name="title"
-                label="Title"
+                label="Serviço"
                 value={order.description}
                 disabled={isDisabled}
                 onChange={handleChange}
